@@ -16,13 +16,13 @@ MAIN_CLASS="kr.or.iei.start.Start"
 mkdir -p "$OUT_DIR" "$BIN_DIR"
 
 # compile
-javac -d "$OUT_DIR" $(find src -name "*.java")
+javac -d "$OUT_DIR" "$(find src -name "*.java")"
 
 # create jar file
 jar --create \
-  --file "$BIN_DIR/$JAR_NAME" \
-  --main-class "$MAIN_CLASS" \
-  -C "$OUT_DIR" .
+    --file "$BIN_DIR/$JAR_NAME" \
+    --main-class "$MAIN_CLASS" \
+    -C "$OUT_DIR" .
 
 # run jar
 java -jar "$BIN_DIR/$JAR_NAME"
