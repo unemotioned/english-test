@@ -153,7 +153,7 @@ jar --create \
   -C out .
 ```
 
-Or for order javac:
+Or for older javac:
 
 ```sh
 jar -cfe bin/english-test.jar kr.or.iei.start.Start -C out .
