@@ -16,7 +16,7 @@ MAIN_CLASS="kr.or.iei.start.Start"
 mkdir -p "$OUT_DIR" "$BIN_DIR"
 
 # compile
-javac -d "$OUT_DIR" "$(find src -name "*.java")"
+javac -d "$OUT_DIR" $(find src -name "*.java")
 
 # create jar file
 jar --create \
