@@ -47,10 +47,10 @@ public class MenuController {
                     editCon.edit();
                     break;
                 case 4:
-                    testCon.test();
+                    testCon.exam();
                     break;
                 case 5:
-                    testCon.reTest();
+                    testCon.makeup();
                     break;
                 case 0:
                     mViewer.terminated();
