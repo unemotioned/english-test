@@ -11,6 +11,8 @@ How to initialize **maven** project.
 - [Install Maven](#install-maven)
 - [Create Project](#create-project)
 - [Build and Run](#build-and-run)
+- [Exec Maven Plugin](#exec-maven-plugin)
+  - [Terminal Command](#terminal-command)
 
 ---
 
@@ -69,7 +71,9 @@ Runs the
 java -jar target/<pkg-name>.jar
 ```
 
-### Exec Maven Plugin
+---
+
+## Exec Maven Plugin
 
 **_A plugin to allow execution of system and Java programs._**
 
@@ -89,7 +93,7 @@ java -jar target/<pkg-name>.jar
 </plugin>
 ```
 
-#### Terminal Command
+### Terminal Command
 
 Do **clean** and **package** first.
 

@@ -1,10 +1,10 @@
-# Compilation
+# Compile
 
-Build and run Java without build tools.
+Compile and run without build tools.
 
 ---
 
-## Compile
+## Compilation
 
 - `find src -name "*.java"`: find all Java files
 - `-d out`: compiled `.class` files into `out/` directory
@@ -15,17 +15,17 @@ javac -d out $(find src -name "*.java")
 
 ## Run
 
-- `Start`: Java file with `psvm`
+- `App`: Java file with `psvm`
 - `-cp`: classpath points to out which runs the compiled files
 
 ```sh
-java -cp out kr.or.iei.start.Start
+java -cp out src.main.java.com.unemotioned.englishtest.App
 ```
 
 ### One Liner
 
 ```sh
-javac -d out $(find src -name "*.java") && java -cp out kr.or.iei.start.Start
+javac -d out $(find src -name "*.java") && java -cp out src.main.java.com.unemotioned.englishtest.App
 ```
 
 ---
@@ -39,7 +39,7 @@ Creates `.jar` file at **bin** directory:
 ```sh
 jar --create \
     --file bin/english-test.jar \
-    --main-class kr.or.iei.start.Start \
+    --main-class src.main.java.com.unemotioned.englishtest.App \
     -C out .
 ```
 

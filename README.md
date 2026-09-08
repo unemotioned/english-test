@@ -6,8 +6,8 @@
 
 ## Archive
 
-- [Run without build tools](./archive/compile.md)
-- [Run with maven](./archive/maven.md)
+- [Compile](./archive/compile.md)
+- [Maven](./archive/maven.md)
 
 ## Table of Contents
 
