@@ -5,11 +5,8 @@ import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.exam.viewer.ExamViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class ExamController {
@@ -34,77 +31,34 @@ public class ExamController {
         list = new ArrayList<>();
     }
 
-    public void test() {
-        System.out.println(failList);
+    public void exam() {
+        char examType = examViewer.examType();
+        int numOfExam = examViewer.numOfExam();
 
-        Random random = new Random();
-        String selWord = examViewer.startTest();
-        int ranNum = examViewer.random();
-        int[] ran = new int[ranNum];
+        list = getRandWords(numOfExam);
 
-        for (int j = 0; j < ran.length; j++) {
-            ran[j] = random.nextInt(list.size());
-            for (int k = 0; k < j; k++) {
-                if (ran[j] == ran[k]) {
-                    j--;
-                }
-            }
-        }
-
-        for (int j = 0; j < ranNum; j++) {
-            final String engSelected = "e";
-            final String korSelected = "k";
-
-            if (selWord.equalsIgnoreCase(engSelected)) {
-                System.out.println(
-                        list.get(ran[j]).getDef1() + "\t" + list.get(ran[j]).getDef2());
-                String answer = examViewer.randomTest();
-
-                if (!answer.equals(list.get(ran[j]).getWord())) {
-                    testList.add(list.get(ran[j]));
-                }
-
-            } else if (selWord.equalsIgnoreCase(korSelected)) {
-                System.out.println(list.get(ran[j]).getWord());
-                String answer = examViewer.randomTest();
-
-                if (!answer.equals(list.get(ran[j]).getDef1())
-                        || !answer.equals(list.get(ran[j]).getDef2())) {
-                    testList.add(list.get(ran[j]));
-                }
-            } else {
-                System.out.println("Error");
-            }
-        }
-        BufferedWriter bw = null;
-
-        try {
-            FileWriter fw = new FileWriter(Config.FAILED_WORD_FILE, true);
-            bw = new BufferedWriter(fw);
-
-            for (int k = 0; k < testList.size(); k++) {
-                for (int l = 0; l < failList.size(); l++) {
-                    if (!failList.get(k).getWord().equals(testList.get(k).getWord())) {
-                        bw.write(testList.get(k).getWord() + "/");
-                        bw.write(testList.get(k).getDef1() + "/");
-                        bw.write(testList.get(k).getDef2());
-                        bw.newLine();
-                    }
-                }
-            }
-            failList.clear();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                bw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (examType == 'e') {
+            System.out.println("You've selected word exam.");
+            engExam();
+        } else {
+            System.out.println("You've selected definition exam.");
+            korExam();
         }
     }
 
-    public void reTest() {
+    private ArrayList<Word> getRandWords(int cnt) {
+        return null;
+    }
+
+    private void engExam() {
+        System.out.println("Guess definition using word.");
+    }
+
+    private void korExam() {
+        System.out.println("Guess word using definition.");
+    }
+
+    public void makeup() {
         failList = util.readFile(Config.FAILED_WORD_FILE);
     }
 }
