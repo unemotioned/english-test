@@ -47,6 +47,11 @@ public class ExamController {
     }
 
     private ArrayList<Word> getRandWords(int cnt) {
+        int numOfWords = util.countWordEntries();
+        if (numOfWords == -1) {
+            return null;
+        }
+
         return null;
     }
 

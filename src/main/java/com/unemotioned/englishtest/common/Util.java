@@ -1,10 +1,8 @@
 package com.unemotioned.englishtest.common;
 
 import com.unemotioned.englishtest.common.vo.Word;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 
 public class Util {
@@ -35,6 +33,25 @@ public class Util {
             System.out.println("I/O Error");
         }
         return list;
+    }
+
+    // TODO: consider counting lines from readFile()
+    public int countWordEntries() {
+        String fName = Config.WORD_FILE;
+        File file = new File(fName);
+
+        int lines = -1;
+        try (LineNumberReader lnr = new LineNumberReader(new FileReader(file))) {
+            while (lnr.readLine() != null) {
+                lines++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(fName + " not found.");
+        } catch (IOException e) {
+            System.out.println("I/O Error");
+        }
+
+        return lines;
     }
 
     public void clearTerminal() {
