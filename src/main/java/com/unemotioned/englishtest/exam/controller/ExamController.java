@@ -6,36 +6,33 @@ import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.exam.viewer.ExamViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class ExamController {
     Scanner sc;
+
     MenuController menuCon;
     ExamViewer examViewer;
-
     Util util;
-    ArrayList<Word> testList;
-    ArrayList<Word> failList;
-    ArrayList<Word> list;
 
     public ExamController(MenuController menuCon) {
         sc = new Scanner(System.in);
 
         this.menuCon = menuCon;
         examViewer = new ExamViewer();
-
         util = new Util();
-        testList = new ArrayList<>();
-        failList = new ArrayList<>();
-        list = new ArrayList<>();
     }
 
     public void exam() {
         char examType = examViewer.examType();
         int numOfExam = examViewer.numOfExam();
 
-        list = getRandWords(numOfExam);
+        ArrayList<Word> list = getRandWords(numOfExam);
+        assert list != null : "ExamController.list must not be null!";
+        for (Word word : list) {
+            int i = 0;
+            System.out.println("word(" + ++i + "): " + word.getWord());
+        }
 
         if (examType == 'e') {
             System.out.println("You've selected word exam.");
@@ -52,7 +49,29 @@ public class ExamController {
             return null;
         }
 
-        return null;
+        // use numOfWords for random number range
+        Random random = new Random();
+        Set<Integer> set = new TreeSet<>();
+        int[] numbers = new int[cnt];
+
+        for (int i = 0; i < cnt; i++) {
+            set.add(random.nextInt(numOfWords));
+        }
+
+        int i = 0;
+        for (int n : set) {
+            numbers[i++] = n;
+        }
+
+        // select words from that line
+        ArrayList<Word> wordList = menuCon.getWordList();
+        ArrayList<Word> testList = new ArrayList<>();
+
+        for (int num : numbers) {
+            testList.add(wordList.get(num));
+        }
+
+        return testList;
     }
 
     private void engExam() {
@@ -64,6 +83,11 @@ public class ExamController {
     }
 
     public void makeup() {
-        failList = util.readFile(Config.FAILED_WORD_FILE);
+        ArrayList<Word> failList = util.readFile(Config.FAILED_WORD_FILE);
+
+        for (Word word : failList) {
+            int i = 0;
+            System.out.println("word(" + ++i  + "): "+ word.getWord());
+        }
     }
 }
