@@ -6,6 +6,10 @@ import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.exam.viewer.ExamViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ExamController {
@@ -40,15 +44,59 @@ public class ExamController {
             results = examViewer.korExam(list);
         }
 
-        createFailedList(results, list);
+        ArrayList<Word> failedList = createFailedList(results, list);
+        if (failedList == null) {
+            return;
+        }
 
-        // TODO: write failedList words to failDB.txt
+        writeToFailDb(failedList);
     }
 
-    private void createFailedList(ArrayList<Integer> results, ArrayList<Word> list) {
-        if (results.toArray().length == 0) {
+    // TODO: consider combining with EditController.add()
+    // check dup
+    private void writeToFailDb(ArrayList<Word> words) {
+        ArrayList<Word> failDb = new ArrayList<>();
+        final String foo = Config.FAILED_WORD_FILE;
+        File bar = new File(foo);
+
+        if (bar.isFile()) {
+            System.out.println(foo + " already exists");
+            failDb = util.readFile(foo);
+        } else {
+            try {
+                if (bar.createNewFile()) {
+                    System.out.println("File created: " + foo);
+                }
+            } catch (IOException e) {
+                System.out.println("ExamController.writeToFaileDb(): I/O Exception");
+            }
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(foo, true))) {
+            boolean isLastLineEmpty = util.emptyLastLine();
+            for (Word word : words) {
+                if (failDb.contains(word)) {
+                    continue;
+                }
+
+                if (isLastLineEmpty) {
+                    isLastLineEmpty = false;
+                } else {
+                    bw.newLine();
+                }
+
+                String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
+                bw.write(entry);
+            }
+        } catch (IOException e) {
+            System.out.println("ExamController.writeFailedList: I/O Exception.");
+        }
+    }
+
+    private ArrayList<Word> createFailedList(ArrayList<Integer> results, ArrayList<Word> list) {
+        if (results.toArray().length == list.toArray().length) {
             examViewer.printPerfect();
-            return;
+            return null;
         }
 
         // reverse the array to remove words from list backwards to not mess up the index
@@ -59,6 +107,8 @@ public class ExamController {
             int anotherIndex = stack.pop();
             list.remove(anotherIndex);
         }
+
+        return list;
     }
 
     private ArrayList<Word> getRandWords(int cnt) {

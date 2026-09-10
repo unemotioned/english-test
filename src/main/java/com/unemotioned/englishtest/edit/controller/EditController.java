@@ -49,7 +49,7 @@ public class EditController {
             bw.write(word.getWord() + "/" + word.getDef1() + "/" + word.getDef2());
             editViewer.addSuccess();
         } catch (IOException e) {
-            System.out.println("I/O Error");
+            System.out.println("EditController.add(): I/O Exception");
         }
     }
 

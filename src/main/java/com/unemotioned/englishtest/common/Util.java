@@ -30,7 +30,7 @@ public class Util {
         } catch (FileNotFoundException e) {
             System.out.println(fileName + " not found.");
         } catch (IOException e) {
-            System.out.println("I/O Error");
+            System.out.println("Util.readFile(): I/O Exception");
         }
         return list;
     }
@@ -48,10 +48,31 @@ public class Util {
         } catch (FileNotFoundException e) {
             System.out.println(fName + " not found.");
         } catch (IOException e) {
-            System.out.println("I/O Error");
+            System.out.println("Util.countWordEntries(): I/O Exception");
         }
 
         return lines;
+    }
+
+    public boolean emptyLastLine() {
+        String failDb = Config.FAILED_WORD_FILE;
+        boolean isPrevLineEmpty = false;
+        String lastLine = null;
+
+        try (LineNumberReader lnr = new LineNumberReader(new FileReader(failDb))) {
+            while (lnr.readLine() != null) {
+                lastLine = lnr.readLine();
+            }
+
+            if (lastLine == null) {
+                isPrevLineEmpty = true;
+            }
+
+        } catch (IOException e) {
+            System.out.println("ExamController.emptyPrevLine(): I/O Exception");
+        }
+
+        return isPrevLineEmpty;
     }
 
     public void clearTerminal() {
@@ -65,7 +86,7 @@ public class Util {
             }
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.out.println("clearTerminal() failed." + e);
+            System.out.println("Util.clearTerminal() failed." + e);
         }
     }
 }

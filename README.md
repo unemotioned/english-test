@@ -17,6 +17,7 @@
 - [4. 오답노트](#4-오답노트)
 - [5. 단어 수정 및 삭제](#5-단어-수정-및-삭제)
 - [TODO List](#todo-list)
+- [BUG](#bug)
 
 ---
 
@@ -40,13 +41,13 @@
 
 ## 3. 테스트
 
-- 종류 : 영한테스트(영단어를 보여주고, 뜻을 맞추는 테스트), 한영테스트(뜻을 보여주고, 영단어를 맞추는 테스트)
+- 종류 : 영한테스트 (영단어를 보여주고, 뜻을 맞추는 테스트), 한영테스트 (뜻을 보여주고, 영단어를 맞추는 테스트)
   - 모든 테스트는 완벽히 일치하는 문자열 입력 시에만 통과. 단, 한영테스트는 대소문자 구분 없음.
 
 - 테스트할 문제의 갯수는 사용자에게 입력 받고, 랜덤으로 문제 추출.
   - 동일 문제 출제 불가.
 
-- 실패한 문제들은 테스트 종료 후, 오답노트 파일(failDB.txt)로 저장.
+- 실패한 문제들은 테스트 종료 후, 오답노트 파일 (failDB.txt)로 저장.
   - (단, 오답노트 파일내부의 단어도 중복 저장 불가하고, 테스트 실패 시 기존 오답노트 파일에 추가 저장)
 
 - 테스트 종료 메뉴 존재
@@ -85,6 +86,7 @@
 - [x] fuzzy search for word
 - [x] print no word exist message
 - [x] option to cancel search
+- [ ] when there are more than one results use index to choose one
 
 ### Add
 
@@ -92,12 +94,12 @@
 - [x] check duplication before adding
 - [x] option to cancel add
 
-### Test
+### Exam
 
 - [x] guess word by definitions
 - [x] guess one of definitions by word
 - [x] number of tests are chosen by user with no duplicated test
-- [ ] words failed to guess goes to failDB.txt with no duplications
+- [x] words failed to guess goes to failDB.txt with no duplications
 - [x] option to cancel test
 
 ### Failed Note
@@ -114,3 +116,9 @@
 - [ ] search word to delete by word
 - [ ] if more then one word is searched, number it and prompt for input
 - [ ] option to delete all
+
+---
+
+## BUG
+
+- [ ] getting 100 words wrong adds duplicated words to end of failDB.txt 
