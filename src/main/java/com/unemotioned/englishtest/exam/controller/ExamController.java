@@ -6,40 +6,51 @@ import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.exam.viewer.ExamViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ExamController {
-    Scanner sc;
-
-    MenuController menuCon;
     ExamViewer examViewer;
+    MenuController menuCon;
     Util util;
 
     public ExamController(MenuController menuCon) {
-        sc = new Scanner(System.in);
-
-        this.menuCon = menuCon;
         examViewer = new ExamViewer();
+        this.menuCon = menuCon;
         util = new Util();
     }
 
     public void exam() {
         char examType = examViewer.examType();
-        int numOfExam = examViewer.numOfExam();
-
-        ArrayList<Word> list = getRandWords(numOfExam);
-        assert list != null : "ExamController.list must not be null!";
-        for (Word word : list) {
-            int i = 0;
-            System.out.println("word(" + ++i + "): " + word.getWord());
+        if (examType == 'C') {
+            return;
         }
 
+        int numOfExam = examViewer.numOfExam();
+        if (numOfExam == 0) {
+            return;
+        }
+
+        ArrayList<Word> list = getRandWords(numOfExam);
+        ArrayList<Word> failedList;
+        assert list != null : "ExamController.list must not be null!";
+
         if (examType == 'e') {
-            System.out.println("You've selected word exam.");
-            engExam();
+            failedList = examViewer.engExam(list);
         } else {
-            System.out.println("You've selected definition exam.");
-            korExam();
+            failedList = examViewer.korExam(list);
+        }
+
+        if (failedList == null) {
+            return;
+        }
+
+        // TODO: write failedList words to failDB.txt
+        int i = 0;
+        for (Word word : failedList) {
+            System.out.println("word(" + i + "): " + word.getWord());
         }
     }
 
@@ -74,20 +85,12 @@ public class ExamController {
         return testList;
     }
 
-    private void engExam() {
-        System.out.println("Guess definition using word.");
-    }
-
-    private void korExam() {
-        System.out.println("Guess word using definition.");
-    }
-
     public void makeup() {
         ArrayList<Word> failList = util.readFile(Config.FAILED_WORD_FILE);
 
         for (Word word : failList) {
             int i = 0;
-            System.out.println("word(" + ++i  + "): "+ word.getWord());
+            System.out.println("word(" + ++i + "): " + word.getWord());
         }
     }
 }
