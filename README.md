@@ -94,11 +94,11 @@
 
 ### Test
 
-- [ ] guess word by definitions
-- [ ] guess one of definitions by word
-- [ ] number of tests are chosen by user with no duplicated test
+- [x] guess word by definitions
+- [x] guess one of definitions by word
+- [x] number of tests are chosen by user with no duplicated test
 - [ ] words failed to guess goes to failDB.txt with no duplications
-- [ ] option to cancel test
+- [x] option to cancel test
 
 ### Failed Note
 

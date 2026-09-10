@@ -5,7 +5,6 @@ import com.unemotioned.englishtest.common.vo.Word;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class ExamViewer {
     Scanner sc;
@@ -22,8 +21,8 @@ public class ExamViewer {
         while (true) {
             try {
                 System.out.print("English / Korean / Cancel (e/k/C): ");
-
                 examType = sc.next().charAt(0);
+
                 if (examType == 'e' || examType == 'k') {
                     break;
                 } else if (examType == 'C') {
@@ -60,7 +59,7 @@ public class ExamViewer {
         return numOfExam;
     }
 
-    public ArrayList<Word> engExam(ArrayList<Word> list) {
+    public ArrayList<Integer> engExam(ArrayList<Word> list) {
         ArrayList<Integer> results = new ArrayList<>();
 
         System.out.println("You've selected word exam.");
@@ -80,36 +79,37 @@ public class ExamViewer {
                 System.out.println("Nay...");
             }
             index = index + 2;
-            System.out.println("index at the final: " + index);
         }
 
-        if (results.toArray().length == 0) {
-            System.out.println("Perfect.");
-            return null;
-        }
-
-        // reverse the array to remove words from list backwards to not mess up the index
-        Stack<Integer> stack = new Stack<>();
-        stack.addAll(results);
-
-        while (!stack.isEmpty()) {
-            System.out.println("bar");
-            int anotherIndex = stack.pop();
-            list.remove(anotherIndex);
-        }
-
-        return list;
+        return results;
     }
 
-    public ArrayList<Word> korExam(ArrayList<Word> list) {
+    public ArrayList<Integer> korExam(ArrayList<Word> list) {
+        ArrayList<Integer> results = new ArrayList<>();
+
         System.out.println("You've selected definition exam.");
         System.out.println("Guess word using definition.\n");
 
+        int index = 1;
         for (Word word : list) {
-            int i = 0;
-            System.out.println("word(" + ++i + "): " + word.getWord());
+            System.out.println("\nWord(" + index + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.print("Guess word from definition: ");
+            String wordGuess = sc.next();
+
+            index--;
+            if (wordGuess.equalsIgnoreCase(word.getWord())) {
+                System.out.println("Yay!!!");
+                results.add(index);
+            } else {
+                System.out.println("Nay...");
+            }
+            index = index + 2;
         }
 
-        return list;
+        return results;
+    }
+
+    public void printPerfect() {
+        System.out.println("Perfect.");
     }
 }

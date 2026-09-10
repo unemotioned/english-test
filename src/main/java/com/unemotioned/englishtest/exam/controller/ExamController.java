@@ -6,10 +6,7 @@ import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.exam.viewer.ExamViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class ExamController {
     ExamViewer examViewer;
@@ -34,23 +31,33 @@ public class ExamController {
         }
 
         ArrayList<Word> list = getRandWords(numOfExam);
-        ArrayList<Word> failedList;
+        ArrayList<Integer> results;
         assert list != null : "ExamController.list must not be null!";
 
         if (examType == 'e') {
-            failedList = examViewer.engExam(list);
+            results = examViewer.engExam(list);
         } else {
-            failedList = examViewer.korExam(list);
+            results = examViewer.korExam(list);
         }
 
-        if (failedList == null) {
+        createFailedList(results, list);
+
+        // TODO: write failedList words to failDB.txt
+    }
+
+    private void createFailedList(ArrayList<Integer> results, ArrayList<Word> list) {
+        if (results.toArray().length == 0) {
+            examViewer.printPerfect();
             return;
         }
 
-        // TODO: write failedList words to failDB.txt
-        int i = 0;
-        for (Word word : failedList) {
-            System.out.println("word(" + i + "): " + word.getWord());
+        // reverse the array to remove words from list backwards to not mess up the index
+        Stack<Integer> stack = new Stack<>();
+        stack.addAll(results);
+
+        while (!stack.isEmpty()) {
+            int anotherIndex = stack.pop();
+            list.remove(anotherIndex);
         }
     }
 
