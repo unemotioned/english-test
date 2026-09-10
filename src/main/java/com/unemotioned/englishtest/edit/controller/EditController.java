@@ -53,38 +53,38 @@ public class EditController {
         }
     }
 
+    // TODO: search and edit / delete the word
     public void edit() {
-        String editWord = editViewer.editViewer();
-        boolean found = false;
+        char editWord = editViewer.editViewer();
 
-        if (editWord.equalsIgnoreCase("c")) {
-            System.out.println("Canceling Search");
-        } else if (editWord.equalsIgnoreCase("a")) {
-            System.out.println("Are you sure you want to delete all?");
-            System.out.println("y / s");
-            char yesOrNo = sc.next().charAt(0);
+        if (editWord == 'C') {
+            editViewer.printCancelEdit();
+            return;
+        }
 
-            final char yesSelected = 'y';
-            if (yesOrNo == yesSelected) {
-                // TODO: confirm editing word
+        if (editWord == 'A') {
+            final char delAllConsent = editViewer.promptDelAllConsent();
+
+            if (delAllConsent == 'y') {
+                emptyAllDb();
+
             } else {
-                System.out.println("Canceling ...");
+                editViewer.printCancelEdit();
             }
+        }
+    }
 
-        } else {
-            for (Word word : menuCon.getWordList()) {
-                if (word.getWord().equalsIgnoreCase(editWord)) {
-                    System.out.println(word);
-                    found = true;
-                    break;
-                }
-            }
+    private void emptyAllDb() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE))) {
+            bw.write("");
+            editViewer.promptDelAllComplete();
+            Thread.sleep(1500);
 
-            if (!found) {
-                System.out.println("No such word");
-            } else {
-                // char editOrDelete = view.editOrDelete();
-            }
+        } catch (InterruptedException e) {
+            System.out.println("EditController.add(): InterruptedException");
+
+        } catch (IOException e) {
+            System.out.println("EditController.add(): I/O Exception");
         }
     }
 }

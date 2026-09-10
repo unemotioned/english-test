@@ -1,6 +1,8 @@
 package com.unemotioned.englishtest.edit.viewer;
 
+import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.vo.Word;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EditViewer {
@@ -40,11 +42,40 @@ public class EditViewer {
         System.out.println("New word added successfully!");
     }
 
-    public String editViewer() {
-        System.out.println("Search word to edit / delete");
-        System.out.println("Delete all / Cancel (a/c)");
-        System.out.print("=> ");
+    public char editViewer() {
+        System.out.println("Search word to edit or delete");
+        System.out.print("Delete all / Cancel (A/C): ");
 
-        return sc.next();
+        return sc.next().charAt(0);
+    }
+
+    public void printCancelEdit() {
+        System.out.println("Canceling edit...");
+    }
+
+    public char promptDelAllConsent() {
+        System.out.println("Are you sure you want to delete all entries in " + Config.WORD_FILE + "?");
+        System.out.print("No by default (y / N): ");
+
+        char input;
+        while (true) {
+            try {
+                input = sc.next().charAt(0);
+                if (input == 'y' || input == 'N') {
+                    break;
+                } else {
+                    System.out.print("Choose between y and N: ");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Pleaese input character type.\n");
+            }
+        }
+
+        return input;
+    }
+
+    public void promptDelAllComplete() {
+        System.out.println(Config.WORD_FILE + " is empty.");
     }
 }
