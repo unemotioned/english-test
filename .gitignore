@@ -15,3 +15,5 @@
 !.zed/settings.json
 
 target/
+
+failDB.txt
