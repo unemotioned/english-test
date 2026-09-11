@@ -4,20 +4,27 @@ import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.edit.viewer.EditViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
+import com.unemotioned.englishtest.search.controller.SearchController;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EditController {
-    Scanner sc;
-    MenuController menuCon;
     EditViewer editViewer;
+    MenuController menuCon;
+    SearchController searchCon;
+
+    Scanner sc;
 
     public EditController(MenuController menuCon) {
-        sc = new Scanner(System.in);
-        this.menuCon = menuCon;
         editViewer = new EditViewer();
+        this.menuCon = menuCon;
+        searchCon = new SearchController(menuCon);
+
+        sc = new Scanner(System.in);
     }
 
     private boolean checkDup(String word) {
@@ -55,14 +62,11 @@ public class EditController {
 
     // TODO: search and edit / delete the word
     public void edit() {
-        char editWord = editViewer.editViewer();
+        String keyword = editViewer.editViewer();
 
-        if (editWord == 'C') {
+        if (keyword.equals("C")) {
             editViewer.printCancelEdit();
-            return;
-        }
-
-        if (editWord == 'A') {
+        } else if (keyword.equals("A")) {
             final char delAllConsent = editViewer.promptDelAllConsent();
 
             if (delAllConsent == 'y') {
@@ -71,6 +75,36 @@ public class EditController {
             } else {
                 editViewer.printCancelEdit();
             }
+        } else {
+            ArrayList<Word> searchList = searchCon.searchWord(keyword);
+
+            if (searchList.isEmpty()) {
+                editViewer.promptNotFound(keyword);
+            } else if (searchList.toArray().length == 1) {
+                // edit or delete
+                editOrDel(searchList.getFirst());
+            } else {
+                // TODO: Add indices to the words and let the user choose
+                System.out.println("Multiple search results...");
+            }
+        }
+    }
+
+    private void editOrDel(Word word) {
+        char foo = editViewer.editOrDel(word.getWord());
+
+        if (foo == 'e') {
+            System.out.println("edit");
+
+            // TODO:
+            // show the searched word's word, def1 and def2
+            // prompt to change the definition
+            // if input is empty keep the previous def
+            // change the line with new entry
+
+        } else if (foo == 'd') {
+            System.out.println("delete");
+            // TODO: delete the word from file
         }
     }
 
@@ -82,7 +116,6 @@ public class EditController {
 
         } catch (InterruptedException e) {
             System.out.println("EditController.add(): InterruptedException");
-
         } catch (IOException e) {
             System.out.println("EditController.add(): I/O Exception");
         }

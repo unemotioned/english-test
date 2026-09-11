@@ -6,11 +6,11 @@ import com.unemotioned.englishtest.search.viewer.SearchViewer;
 import java.util.ArrayList;
 
 public class SearchController {
-    MenuController menuCon;
-    SearchViewer searchViewer;
-
     final short asciiLowerA = 65;
     final short asciiUpperZ = 122;
+
+    MenuController menuCon;
+    SearchViewer searchViewer;
 
     public SearchController(MenuController menuCon) {
         this.menuCon = menuCon;
@@ -47,7 +47,7 @@ public class SearchController {
         }
     }
 
-    private ArrayList<Word> searchWord(String searchWord) {
+    public ArrayList<Word> searchWord(String searchWord) {
         ArrayList<Word> searchResults = new ArrayList<>();
 
         for (Word word : menuCon.getWordList()) {
