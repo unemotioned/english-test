@@ -1,6 +1,7 @@
 package com.unemotioned.englishtest.edit.controller;
 
 import com.unemotioned.englishtest.common.Config;
+import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.edit.viewer.EditViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
@@ -16,6 +17,7 @@ public class EditController {
     EditViewer editViewer;
     MenuController menuCon;
     SearchController searchCon;
+    Util util;
 
     Scanner sc;
 
@@ -23,6 +25,7 @@ public class EditController {
         editViewer = new EditViewer();
         this.menuCon = menuCon;
         searchCon = new SearchController(menuCon);
+        util = new Util();
 
         sc = new Scanner(System.in);
     }
@@ -103,8 +106,8 @@ public class EditController {
             // change the line with new entry
 
         } else if (foo == 'd') {
-            System.out.println("delete");
-            // TODO: delete the word from file
+            ArrayList<Word> wordList = menuCon.getWordList();
+            util.removeLine(word, wordList);
         }
     }
 

@@ -89,4 +89,19 @@ public class Util {
             System.out.println("Util.clearTerminal() failed." + e);
         }
     }
+
+    public void removeLine(Word word, ArrayList<Word> list) {
+        list.remove(word);
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE))) {
+
+            for (Word entry : list) {
+                bw.write(entry.getWord() + "/" + entry.getDef1() + "/" + entry.getDef2());
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Util.removeLine(): IOException");
+        }
+    }
 }
