@@ -1,5 +1,6 @@
 package com.unemotioned.englishtest.edit.controller;
 
+import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.edit.viewer.EditViewer;
@@ -48,7 +49,7 @@ public class EditController {
             return;
         }
 
-        boolean appendRes = util.appendToFile(word);
+        boolean appendRes = util.appendToFile(word, Config.WORD_FILE);
         editViewer.addRes(appendRes);
     }
 

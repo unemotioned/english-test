@@ -5,11 +5,7 @@ import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.exam.viewer.ExamViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
-
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 public class ExamController {
@@ -52,44 +48,25 @@ public class ExamController {
         writeToFailDb(failedList);
     }
 
-    // TODO: consider combining with EditController.add()
-    // check dup
-    private void writeToFailDb(ArrayList<Word> words) {
-        ArrayList<Word> failDb = new ArrayList<>();
-        final String foo = Config.FAILED_WORD_FILE;
-        File bar = new File(foo);
+    private void writeToFailDb(ArrayList<Word> failedList) {
+        final String fileName = Config.FAILED_WORD_FILE;
+        File failedFile = new File(fileName);
+        ArrayList<Word> prevFailed = new ArrayList<>();
 
-        if (bar.isFile()) {
-            System.out.println(foo + " already exists");
-            failDb = util.readFile(foo);
+        if (failedFile.isFile()) {
+            prevFailed = util.readFile(fileName);
         } else {
-            try {
-                if (bar.createNewFile()) {
-                    System.out.println("File created: " + foo);
-                }
-            } catch (IOException e) {
-                System.out.println("ExamController.writeToFaileDb(): I/O Exception");
+            util.createFile(fileName);
+        }
+
+        for (Word word : failedList) {
+            if (prevFailed.contains(word)) {
+                failedList.remove(word);
             }
         }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(foo, true))) {
-            boolean isLastLineEmpty = util.emptyLastLine();
-            for (Word word : words) {
-                if (failDb.contains(word)) {
-                    continue;
-                }
-
-                if (isLastLineEmpty) {
-                    isLastLineEmpty = false;
-                } else {
-                    bw.newLine();
-                }
-
-                String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
-                bw.write(entry);
-            }
-        } catch (IOException e) {
-            System.out.println("ExamController.writeFailedList: I/O Exception.");
+        if (!failedList.isEmpty()) {
+            util.appendToFile(failedList, Config.FAILED_WORD_FILE);
         }
     }
 

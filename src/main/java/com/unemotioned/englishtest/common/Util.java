@@ -34,11 +34,28 @@ public class Util {
         return list;
     }
 
-    public boolean appendToFile(Word word) {
-        String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
+    public void createFile(String fileName) {
+        File failedFile = new File(fileName);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE, true))) {
-            bw.newLine();
+        try {
+            if (failedFile.createNewFile()) {
+                System.out.println("File created: " + fileName);
+            }
+        } catch (IOException e) {
+            System.out.println("Util.createFile(): IOException");
+        }
+    }
+
+    public boolean appendToFile(Word word, String fileName) {
+        String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
+        boolean isLastLineEmpty = emptyLastLine();
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
+            if (isLastLineEmpty) {
+                isLastLineEmpty = false;
+            } else {
+                bw.newLine();
+            }
             bw.write(entry);
 
             return true;
@@ -46,6 +63,25 @@ public class Util {
             System.out.println("Util.appendToFile(): IOException");
 
             return false;
+        }
+    }
+
+    public void appendToFile(ArrayList<Word> entries, String fileName) {
+        boolean isLastLineEmpty = emptyLastLine();
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
+            for (Word word : entries) {
+                String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
+
+                if (isLastLineEmpty) {
+                    isLastLineEmpty = false;
+                } else {
+                    bw.newLine();
+                }
+                bw.write(entry);
+            }
+        } catch (IOException e) {
+            System.out.println("Util.appendToFile(): IOException");
         }
     }
 
@@ -73,7 +109,7 @@ public class Util {
         } catch (FileNotFoundException e) {
             System.out.println(fName + " not found.");
         } catch (IOException e) {
-            System.out.println("Util.countWordEntries(): I/O Exception");
+            System.out.println("Util.countWordEntries(): IOException");
         }
 
         return lines;
