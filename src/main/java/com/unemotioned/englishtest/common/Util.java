@@ -1,7 +1,6 @@
 package com.unemotioned.englishtest.common;
 
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -30,9 +29,35 @@ public class Util {
         } catch (FileNotFoundException e) {
             System.out.println(fileName + " not found.");
         } catch (IOException e) {
-            System.out.println("Util.readFile(): I/O Exception");
+            System.out.println("Util.readFile(): IOException");
         }
         return list;
+    }
+
+    public boolean appendToFile(Word word) {
+        String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE, true))) {
+            bw.newLine();
+            bw.write(entry);
+
+            return true;
+        } catch (IOException e) {
+            System.out.println("Util.appendToFile(): IOException");
+
+            return false;
+        }
+    }
+
+    public boolean emptyAllDb() {
+        String fname = Config.WORD_FILE;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fname))) {
+            bw.write("");
+            return true;
+        } catch (IOException e) {
+            System.out.println("Util.emptyAllDb(): IOException");
+        }
+        return false;
     }
 
     // TODO: consider counting lines from readFile()
@@ -69,7 +94,7 @@ public class Util {
             }
 
         } catch (IOException e) {
-            System.out.println("ExamController.emptyPrevLine(): I/O Exception");
+            System.out.println("ExamController.emptyPrevLine(): IOException");
         }
 
         return isPrevLineEmpty;

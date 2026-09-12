@@ -1,15 +1,10 @@
 package com.unemotioned.englishtest.edit.controller;
 
-import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.edit.viewer.EditViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.controller.SearchController;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,25 +37,19 @@ public class EditController {
     }
 
     public void add() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE, true))) {
-            Word word = editViewer.add();
-
-            if (word == null) {
-                return;
-            }
-
-            boolean isDup = checkDup(word.getWord().toLowerCase());
-            if (isDup) {
-                editViewer.printDup(word.getWord());
-                return;
-            }
-
-            bw.newLine();
-            bw.write(word.getWord() + "/" + word.getDef1() + "/" + word.getDef2());
-            editViewer.addSuccess();
-        } catch (IOException e) {
-            System.out.println("EditController.add(): I/O Exception");
+        Word word = editViewer.add();
+        if (word == null) {
+            return;
         }
+
+        boolean isDup = checkDup(word.getWord().toLowerCase());
+        if (isDup) {
+            editViewer.printDup(word.getWord());
+            return;
+        }
+
+        boolean appendRes = util.appendToFile(word);
+        editViewer.addRes(appendRes);
     }
 
     // TODO: search and edit / delete the word
@@ -73,8 +62,8 @@ public class EditController {
             final char delAllConsent = editViewer.promptDelAllConsent();
 
             if (delAllConsent == 'y') {
-                emptyAllDb();
-
+                boolean delAllRes = util.emptyAllDb();
+                editViewer.delAllRes(delAllRes);
             } else {
                 editViewer.printCancelEdit();
             }
@@ -108,19 +97,6 @@ public class EditController {
         } else if (foo == 'd') {
             ArrayList<Word> wordList = menuCon.getWordList();
             util.removeLine(word, wordList);
-        }
-    }
-
-    private void emptyAllDb() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE))) {
-            bw.write("");
-            editViewer.promptDelAllComplete();
-            Thread.sleep(1500);
-
-        } catch (InterruptedException e) {
-            System.out.println("EditController.add(): InterruptedException");
-        } catch (IOException e) {
-            System.out.println("EditController.add(): I/O Exception");
         }
     }
 }

@@ -2,7 +2,6 @@ package com.unemotioned.englishtest.edit.viewer;
 
 import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -39,9 +38,23 @@ public class EditViewer {
         System.out.println("The word: " + word + " is already saved.");
     }
 
-    public void addSuccess() {
-        System.out.println("New word added successfully!");
+    public void addRes(boolean addRes) {
+        if (addRes) {
+            System.out.println("Add word: success!");
+        } else {
+            System.out.println("Add word: failed...");
+        }
     }
+
+    public void delAllRes(boolean delAllRes) {
+        if (delAllRes) {
+            System.out.println("Delete all words: success!");
+        } else {
+            System.out.println("Delete all words: failed...");
+        }
+    }
+
+    public void delAllFailed() {}
 
     public String editViewer() {
         System.out.println("Search word to edit or delete");
