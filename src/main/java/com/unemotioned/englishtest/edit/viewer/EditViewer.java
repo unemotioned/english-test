@@ -54,8 +54,6 @@ public class EditViewer {
         }
     }
 
-    public void delAllFailed() {}
-
     public String editViewer() {
         System.out.println("Search word to edit or delete");
         System.out.print("or delete All / Cancel (A/C): ");

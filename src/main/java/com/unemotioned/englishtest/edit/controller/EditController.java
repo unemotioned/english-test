@@ -26,25 +26,12 @@ public class EditController {
         sc = new Scanner(System.in);
     }
 
-    private boolean checkDup(String word) {
-        for (Word foo : menuCon.getWordList()) {
-            String wordFromFile = foo.getWord();
-
-            if (wordFromFile.equalsIgnoreCase(word)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void add() {
         Word word = editViewer.add();
+
         if (word == null) {
             return;
-        }
-
-        boolean isDup = checkDup(word.getWord().toLowerCase());
-        if (isDup) {
+        } else if (menuCon.getWordList().contains(word)) {
             editViewer.printDup(word.getWord());
             return;
         }
