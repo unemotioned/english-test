@@ -150,4 +150,19 @@ public class Util {
             System.out.println("Util.removeLine(): IOException");
         }
     }
+
+    public boolean overwrite(String fileName, ArrayList<Word> list) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+
+            for (Word word : list) {
+                String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
+                bw.write(entry);
+                bw.newLine();
+            }
+            return true;
+        } catch (IOException e) {
+            System.out.println("Util.overwrite(): IOException");
+            return false;
+        }
+    }
 }

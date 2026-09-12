@@ -100,10 +100,10 @@
 ### Edit
 
 - [x] delete allDB.txt entries
-- [ ] search word to edit by word and change definitions without duplication
-- [ ] search word to delete by word
+- [x] search word and edit
+- [x] search word and delete
+- [x] option to delete all
 - [ ] if more then one word is searched, number it and prompt for input
-- [ ] option to delete all
 - [ ] track allDB.txt.bak and create allDB.txt for program to edit
 
 ---

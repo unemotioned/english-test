@@ -55,8 +55,8 @@ public class EditViewer {
     }
 
     public String editViewer() {
-        System.out.println("Search word to edit or delete");
-        System.out.print("or delete All / Cancel (A/C): ");
+        System.out.println("\nSearch word to edit or delete.");
+        System.out.print("Delete All / Cancel (A/C): ");
 
         return sc.next();
     }
@@ -98,7 +98,7 @@ public class EditViewer {
     public char editOrDel(String word) {
         char input;
 
-        System.out.println("\nEdit or Delete the word: " + word + "?");
+        System.out.println("\nEdit or Delete the word: " + word);
         while (true) {
             System.out.print("Edit / Delete / Cancel (e/d/C): ");
             try {
@@ -116,5 +116,41 @@ public class EditViewer {
             }
         }
         return input;
+    }
+
+    public Word editWord(Word word) {
+        System.out.println("\n===== Edit Word =====");
+        System.out.println("Word: " + word.getWord());
+        System.out.println("Definition 1: " + word.getDef1());
+        System.out.println("Definition 2: " + word.getDef2());
+        System.out.println("(Press enter key to skip)\n");
+
+        sc.nextLine(); // consume input buffer after .nextLine()
+
+        word.setWord(editOrSkip("Edit word: ", word.getWord()));
+        word.setDef1(editOrSkip("Edit def1: ", word.getDef1()));
+        word.setDef2(editOrSkip("Edit def2: ", word.getDef2()));
+
+        return word;
+    }
+
+    private String editOrSkip(String prompt, String prev) {
+        System.out.print(prompt);
+        String input = sc.nextLine().trim();
+
+        if (input.isEmpty()) {
+            input = prev;
+        }
+
+        return input;
+    }
+
+    // prompt what is changed to what
+    public void editRes(boolean res) {
+        if (res) {
+            System.out.println("Edit word: Success!");
+        } else {
+            System.out.println("Edit word: Failed...");
+        }
     }
 }

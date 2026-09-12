@@ -40,7 +40,6 @@ public class EditController {
         editViewer.addRes(appendRes);
     }
 
-    // TODO: search and edit / delete the word
     public void edit() {
         String keyword = editViewer.editViewer();
 
@@ -71,19 +70,22 @@ public class EditController {
     }
 
     private void editOrDel(Word word) {
-        char foo = editViewer.editOrDel(word.getWord());
+        char input = editViewer.editOrDel(word.getWord());
+        ArrayList<Word> wordList = menuCon.getWordList();
 
-        if (foo == 'e') {
-            System.out.println("edit");
+        if (input == 'e') {
+            // TODO: change the line with new entry
+            Word editedWord = editViewer.editWord(word);
 
-            // TODO:
-            // show the searched word's word, def1 and def2
-            // prompt to change the definition
-            // if input is empty keep the previous def
-            // change the line with new entry
+            int index = wordList.indexOf(word);
+            if (index != -1) {
+                wordList.set(index, editedWord);
+            }
 
-        } else if (foo == 'd') {
-            ArrayList<Word> wordList = menuCon.getWordList();
+            boolean editRes = util.overwrite(Config.WORD_FILE, wordList);
+            editViewer.editRes(editRes);
+
+        } else if (input == 'd') {
             util.removeLine(word, wordList);
         }
     }
