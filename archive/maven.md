@@ -10,9 +10,10 @@ How to initialize **maven** project.
 
 - [Install Maven](#install-maven)
 - [Create Project](#create-project)
-- [Build and Run](#build-and-run)
+- [Compile](#compile)
 - [Exec Maven Plugin](#exec-maven-plugin)
   - [Terminal Command](#terminal-command)
+- [Package](#package)
 
 ---
 
@@ -56,19 +57,10 @@ Under `com.unemotioned.englishtest`, create **Controller**, **Service**,
 
 ---
 
-## Build and Run
-
-- **clean**: Remove previously built artifacts (`target` directory).
-- **package**: Output JAR file under target directory.
+## Compile
 
 ```sh
-mvn clean package
-```
-
-Runs the
-
-```sh
-java -jar target/<pkg-name>.jar
+mvn compile
 ```
 
 ---
@@ -95,10 +87,24 @@ java -jar target/<pkg-name>.jar
 
 ### Terminal Command
 
-Do **clean** and **package** first.
+Compile first.
 
 Then run with `exec` command:
 
 ```sh
 mvn exec:java
+
+# in one line
+mvn compile exec:java
+```
+
+---
+
+## Package
+
+- **clean**: Remove previously built artifacts (`target` directory).
+- **package**: Output JAR file under target directory.
+
+```sh
+mvn clean package
 ```
