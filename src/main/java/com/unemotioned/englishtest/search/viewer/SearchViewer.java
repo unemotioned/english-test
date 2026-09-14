@@ -39,7 +39,7 @@ public class SearchViewer {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
 
-        System.out.print("\nSelect index of word to show definitions: ");
+        System.out.print("\nSelect one: ");
         return sc.nextInt();
     }
 

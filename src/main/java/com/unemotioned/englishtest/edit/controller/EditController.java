@@ -6,18 +6,22 @@ import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.edit.viewer.EditViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.controller.SearchController;
+import com.unemotioned.englishtest.search.viewer.SearchViewer;
+
 import java.util.ArrayList;
 
 public class EditController {
     EditViewer editViewer;
     MenuController menuCon;
     SearchController searchCon;
+    SearchViewer searchViewer;
     Util util;
 
     public EditController(MenuController menuCon) {
         editViewer = new EditViewer();
         this.menuCon = menuCon;
         searchCon = new SearchController(menuCon);
+        searchViewer = new SearchViewer();
         util = new Util();
     }
 
@@ -55,11 +59,10 @@ public class EditController {
             if (searchList.isEmpty()) {
                 editViewer.promptNotFound(keyword);
             } else if (searchList.toArray().length == 1) {
-                // edit or delete
                 editOrDel(searchList.getFirst());
             } else {
-                // TODO: Add indices to the words and let the user choose
-                System.out.println("Multiple search results...");
+                int index = searchViewer.chooseWord(searchList);
+                editOrDel(searchList.get(--index));
             }
         }
     }

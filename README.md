@@ -103,7 +103,7 @@
 - [x] search word and edit
 - [x] search word and delete
 - [x] option to delete all
-- [ ] if more then one word is searched, number it and prompt for input
+- [x] if more then one word is searched, number it and prompt for input
 - [ ] track allDB.txt.bak and create allDB.txt for program to edit
 
 ---
