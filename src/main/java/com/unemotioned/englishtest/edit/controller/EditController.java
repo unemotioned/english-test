@@ -7,7 +7,6 @@ import com.unemotioned.englishtest.edit.viewer.EditViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.controller.SearchController;
 import com.unemotioned.englishtest.search.viewer.SearchViewer;
-
 import java.util.ArrayList;
 
 public class EditController {
@@ -48,7 +47,7 @@ public class EditController {
             final char delAllConsent = editViewer.promptDelAllConsent();
 
             if (delAllConsent == 'y') {
-                boolean delAllRes = util.emptyAllDb();
+                boolean delAllRes = util.overwrite(Config.WORD_FILE, null);
                 editViewer.delAllRes(delAllRes);
             } else {
                 editViewer.printCancelEdit();

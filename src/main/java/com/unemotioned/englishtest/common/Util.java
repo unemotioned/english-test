@@ -1,7 +1,6 @@
 package com.unemotioned.englishtest.common;
 
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -80,17 +79,6 @@ public class Util {
         }
     }
 
-    public boolean emptyAllDb() {
-        String fileName = Config.WORD_FILE;
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-            bw.write("");
-            return true;
-        } catch (IOException e) {
-            System.out.println("Util.emptyAllDb(): IOException");
-        }
-        return false;
-    }
-
     public boolean emptyLastLine(String fileName) {
         boolean isPrevLineEmpty = false;
         String lastLine = null;
@@ -114,6 +102,12 @@ public class Util {
 
     public boolean overwrite(String fileName, ArrayList<Word> list) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+
+            if (list == null) {
+                bw.write("");
+                return true;
+            }
+
             for (Word word : list) {
                 bw.write(wordToString(word));
                 bw.newLine();
