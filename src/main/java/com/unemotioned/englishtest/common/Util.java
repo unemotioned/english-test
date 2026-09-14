@@ -1,6 +1,7 @@
 package com.unemotioned.englishtest.common;
 
 import com.unemotioned.englishtest.common.vo.Word;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class Util {
     }
 
     public boolean appendToFile(Word word, String fileName) {
-        boolean isLastLineEmpty = emptyLastLine();
+        boolean isLastLineEmpty = emptyLastLine(fileName);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
             if (!isLastLineEmpty) {
@@ -63,7 +64,7 @@ public class Util {
     }
 
     public void appendToFile(ArrayList<Word> entries, String fileName) {
-        boolean isLastLineEmpty = emptyLastLine();
+        boolean isLastLineEmpty = emptyLastLine(fileName);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Word word : entries) {
@@ -90,12 +91,11 @@ public class Util {
         return false;
     }
 
-    public boolean emptyLastLine() {
-        String failDb = Config.FAILED_WORD_FILE;
+    public boolean emptyLastLine(String fileName) {
         boolean isPrevLineEmpty = false;
         String lastLine = null;
 
-        try (LineNumberReader lnr = new LineNumberReader(new FileReader(failDb))) {
+        try (LineNumberReader lnr = new LineNumberReader(new FileReader(fileName))) {
             while (lnr.readLine() != null) {
                 lastLine = lnr.readLine();
             }
@@ -103,9 +103,10 @@ public class Util {
             if (lastLine == null) {
                 isPrevLineEmpty = true;
             }
-
+        } catch (FileNotFoundException e) {
+            System.out.println("Util.emptyLastLine(): FileNotFound");
         } catch (IOException e) {
-            System.out.println("ExamController.emptyPrevLine(): IOException");
+            System.out.println("Util.emptyLastLine(): IOException");
         }
 
         return isPrevLineEmpty;
