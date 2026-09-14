@@ -79,7 +79,7 @@ public class Util {
         }
     }
 
-    public boolean emptyLastLine(String fileName) {
+    private boolean emptyLastLine(String fileName) {
         boolean isPrevLineEmpty = false;
         String lastLine = null;
 

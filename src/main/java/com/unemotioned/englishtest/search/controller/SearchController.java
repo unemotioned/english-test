@@ -38,7 +38,7 @@ public class SearchController {
 
             if (wordList.isEmpty()) {
                 searchViewer.noSearchResults(searchWord);
-            } else if (wordList.toArray().length == 1)  {
+            } else if (wordList.toArray().length == 1) {
                 searchViewer.searchResHeader();
                 searchViewer.searchRes(wordList.getFirst());
             } else {

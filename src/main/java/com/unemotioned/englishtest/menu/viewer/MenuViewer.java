@@ -1,6 +1,7 @@
 package com.unemotioned.englishtest.menu.viewer;
 
-import java.io.*;
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuViewer {
@@ -13,6 +14,7 @@ public class MenuViewer {
     public int menu() {
         clearTerminal();
 
+        int input;
         System.out.println("===== English Test =====");
         System.out.println("1 Search");
         System.out.println("2 Add new");
@@ -20,11 +22,23 @@ public class MenuViewer {
         System.out.println("4 Start exam");
         System.out.println("5 Make-up exam");
         System.out.println("0 Terminate");
-        System.out.print("=> ");
 
-        int input = sc.nextInt();
-        sc.nextLine();
+        while (true) {
+            System.out.print("=> ");
+            try {
+                input = sc.nextInt();
+                sc.nextLine();
 
+                if (input >= 0 && input <= 5) {
+                    break;
+                } else {
+                    System.out.println("Please choose 1-5 or 0");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Please input integer type");
+            }
+        }
         return input;
     }
 

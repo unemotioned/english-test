@@ -7,8 +7,9 @@ import com.unemotioned.englishtest.edit.controller.EditController;
 import com.unemotioned.englishtest.exam.controller.ExamController;
 import com.unemotioned.englishtest.menu.viewer.MenuViewer;
 import com.unemotioned.englishtest.search.controller.SearchController;
-import java.util.ArrayList;
 import lombok.Getter;
+
+import java.util.ArrayList;
 
 public class MenuController {
     MenuViewer mViewer;
