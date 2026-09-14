@@ -1,16 +1,13 @@
 package com.unemotioned.englishtest.menu.viewer;
 
-import com.unemotioned.englishtest.common.Util;
 import java.io.*;
 import java.util.Scanner;
 
 public class MenuViewer {
     Scanner sc;
-    Util util;
 
     public MenuViewer() {
         sc = new Scanner(System.in);
-        util = new Util();
     }
 
     public int menu() {
@@ -43,7 +40,7 @@ public class MenuViewer {
         }
     }
 
-    public void terminated() {
+    public void terminate() {
         System.out.println("Terminated");
     }
 }

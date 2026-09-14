@@ -7,7 +7,6 @@ import com.unemotioned.englishtest.edit.viewer.EditViewer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.controller.SearchController;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class EditController {
     EditViewer editViewer;
@@ -15,15 +14,11 @@ public class EditController {
     SearchController searchCon;
     Util util;
 
-    Scanner sc;
-
     public EditController(MenuController menuCon) {
         editViewer = new EditViewer();
         this.menuCon = menuCon;
         searchCon = new SearchController(menuCon);
         util = new Util();
-
-        sc = new Scanner(System.in);
     }
 
     public void add() {
@@ -74,7 +69,6 @@ public class EditController {
         ArrayList<Word> wordList = menuCon.getWordList();
 
         if (input == 'e') {
-            // TODO: change the line with new entry
             Word editedWord = editViewer.editWord(word);
 
             int index = wordList.indexOf(word);
@@ -86,7 +80,8 @@ public class EditController {
             editViewer.editRes(editRes);
 
         } else if (input == 'd') {
-            util.removeLine(word, wordList);
+            wordList.remove(word);
+            util.overwrite(Config.WORD_FILE, wordList);
         }
     }
 }

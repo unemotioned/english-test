@@ -53,7 +53,7 @@ public class MenuController {
                     testCon.makeup();
                     break;
                 case 0:
-                    mViewer.terminated();
+                    mViewer.terminate();
                     return;
                 default:
                     break;

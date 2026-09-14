@@ -32,7 +32,6 @@ public class ExamController {
 
         ArrayList<Word> list = getRandWords(numOfExam);
         ArrayList<Integer> results;
-        assert list != null : "ExamController.list must not be null!";
 
         if (examType == 'e') {
             results = examViewer.engExam(list);
@@ -89,15 +88,10 @@ public class ExamController {
     }
 
     private ArrayList<Word> getRandWords(int cnt) {
-        int numOfWords = util.countWordEntries();
-        if (numOfWords == -1) {
-            return null;
-        }
-
-        // use numOfWords for random number range
         Random random = new Random();
         Set<Integer> set = new TreeSet<>();
         int[] numbers = new int[cnt];
+        int numOfWords = menuCon.getWordList().toArray().length;
 
         for (int i = 0; i < cnt; i++) {
             set.add(random.nextInt(numOfWords));

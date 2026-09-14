@@ -87,10 +87,6 @@ public class EditViewer {
         return input;
     }
 
-    public void promptDelAllComplete() {
-        System.out.println(Config.WORD_FILE + " is empty.");
-    }
-
     public void promptNotFound(String keyword) {
         System.out.println("Not found: " + keyword);
     }

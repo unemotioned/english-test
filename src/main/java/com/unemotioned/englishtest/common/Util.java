@@ -47,17 +47,13 @@ public class Util {
     }
 
     public boolean appendToFile(Word word, String fileName) {
-        String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
         boolean isLastLineEmpty = emptyLastLine();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
-            if (isLastLineEmpty) {
-                isLastLineEmpty = false;
-            } else {
+            if (!isLastLineEmpty) {
                 bw.newLine();
             }
-            bw.write(entry);
-
+            bw.write(wordToString(word));
             return true;
         } catch (IOException e) {
             System.out.println("Util.appendToFile(): IOException");
@@ -71,14 +67,12 @@ public class Util {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Word word : entries) {
-                String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
-
                 if (isLastLineEmpty) {
                     isLastLineEmpty = false;
                 } else {
                     bw.newLine();
                 }
-                bw.write(entry);
+                bw.write(wordToString(word));
             }
         } catch (IOException e) {
             System.out.println("Util.appendToFile(): IOException");
@@ -86,33 +80,14 @@ public class Util {
     }
 
     public boolean emptyAllDb() {
-        String fname = Config.WORD_FILE;
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fname))) {
+        String fileName = Config.WORD_FILE;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write("");
             return true;
         } catch (IOException e) {
             System.out.println("Util.emptyAllDb(): IOException");
         }
         return false;
-    }
-
-    // TODO: consider counting lines from readFile()
-    public int countWordEntries() {
-        String fName = Config.WORD_FILE;
-        File file = new File(fName);
-
-        int lines = -1;
-        try (LineNumberReader lnr = new LineNumberReader(new FileReader(file))) {
-            while (lnr.readLine() != null) {
-                lines++;
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(fName + " not found.");
-        } catch (IOException e) {
-            System.out.println("Util.countWordEntries(): IOException");
-        }
-
-        return lines;
     }
 
     public boolean emptyLastLine() {
@@ -136,27 +111,10 @@ public class Util {
         return isPrevLineEmpty;
     }
 
-    public void removeLine(Word word, ArrayList<Word> list) {
-        list.remove(word);
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Config.WORD_FILE))) {
-
-            for (Word entry : list) {
-                bw.write(entry.getWord() + "/" + entry.getDef1() + "/" + entry.getDef2());
-                bw.newLine();
-            }
-
-        } catch (IOException e) {
-            System.out.println("Util.removeLine(): IOException");
-        }
-    }
-
     public boolean overwrite(String fileName, ArrayList<Word> list) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-
             for (Word word : list) {
-                String entry = word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
-                bw.write(entry);
+                bw.write(wordToString(word));
                 bw.newLine();
             }
             return true;
@@ -164,5 +122,9 @@ public class Util {
             System.out.println("Util.overwrite(): IOException");
             return false;
         }
+    }
+
+    private String wordToString(Word word) {
+        return word.getWord() + "/" + word.getDef1() + "/" + word.getDef2();
     }
 }
