@@ -2,7 +2,6 @@ package com.unemotioned.englishtest.edit.viewer;
 
 import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -148,6 +147,26 @@ public class EditViewer {
             System.out.println("Edit word: Success!");
         } else {
             System.out.println("Edit word: Failed...");
+        }
+    }
+
+    public boolean delWordConsent() {
+        System.out.print("Are you sure? (y/N): ");
+        while (true) {
+            try {
+                String input = sc.nextLine().trim();
+
+                if (input.equalsIgnoreCase("y")) {
+                    return true;
+                } else if (input.isEmpty() || input.equals("N")) {
+                    return false;
+                } else {
+                    System.out.println("Please choose between Yes or No: ");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("EditViewer.delWordConsent(): InputMismatchException");
+            }
         }
     }
 }

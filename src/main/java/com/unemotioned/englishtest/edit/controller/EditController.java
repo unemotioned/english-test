@@ -82,8 +82,11 @@ public class EditController {
             editViewer.editRes(editRes);
 
         } else if (input == 'd') {
-            wordList.remove(word);
-            util.overwrite(Config.WORD_FILE, wordList);
+            boolean delWord = editViewer.delWordConsent();
+            if (delWord) {
+                wordList.remove(word);
+                util.overwrite(Config.WORD_FILE, wordList);
+            }
         }
     }
 }

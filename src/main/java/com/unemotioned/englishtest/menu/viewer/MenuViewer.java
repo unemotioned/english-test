@@ -22,7 +22,10 @@ public class MenuViewer {
         System.out.println("0 Terminate");
         System.out.print("=> ");
 
-        return sc.nextInt();
+        int input = sc.nextInt();
+        sc.nextLine();
+
+        return input;
     }
 
     private void clearTerminal() {
