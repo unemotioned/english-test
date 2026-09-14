@@ -36,24 +36,27 @@ public class SearchController {
                 wordList = searchDef(searchWord);
             }
 
-            if (!wordList.isEmpty()) {
-                searchViewer.searchResultsHeader();
-                for (Word word : wordList) {
-                    searchViewer.showSearchResults(word);
-                }
-            } else {
+            if (wordList.isEmpty()) {
                 searchViewer.noSearchResults(searchWord);
+            } else if (wordList.toArray().length == 1)  {
+                searchViewer.searchResHeader();
+                searchViewer.searchRes(wordList.getFirst());
+            } else {
+                int index = searchViewer.chooseWord(wordList);
+                searchViewer.searchRes(wordList.get(--index));
             }
         }
     }
 
     public ArrayList<Word> searchWord(String searchWord) {
         ArrayList<Word> searchResults = new ArrayList<>();
+        int index = 1;
 
         for (Word word : menuCon.getWordList()) {
             String wordFromFile = word.getWord();
 
             if (wordFromFile.toLowerCase().contains(searchWord.toLowerCase())) {
+                word.setIndex(index++);
                 searchResults.add(word);
             }
         }

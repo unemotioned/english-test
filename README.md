@@ -73,7 +73,7 @@
 - [x] fuzzy search for word
 - [x] print no word exist message
 - [x] option to cancel search
-- [ ] when there are more than one results use index to choose one
+- [x] when there are more than one results use index to choose one
 
 ### Add
 
