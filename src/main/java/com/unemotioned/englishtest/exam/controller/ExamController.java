@@ -111,6 +111,7 @@ public class ExamController {
             testList.add(list.get(num));
         }
 
+        Collections.shuffle(testList);
         return testList;
     }
 
