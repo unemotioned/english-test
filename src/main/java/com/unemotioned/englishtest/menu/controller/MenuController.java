@@ -51,6 +51,9 @@ public class MenuController {
                     examCon.exam();
                     break;
                 case 5:
+                    examCon.showFailed();
+                    break;
+                case 6:
                     examCon.makeup();
                     break;
                 case 0:

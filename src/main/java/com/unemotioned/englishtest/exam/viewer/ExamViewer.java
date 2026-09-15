@@ -4,6 +4,7 @@ import com.unemotioned.englishtest.common.vo.Word;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ExamViewer {
@@ -111,5 +112,26 @@ public class ExamViewer {
 
     public void printPerfect() {
         System.out.println("Perfect.");
+    }
+
+    public int[] showFailed(List<Word> list) {
+        for (Word word : list) {
+            System.out.println(word.getIndex() + ": " + word.getWord());
+        }
+        System.out.print("Select words to show definitions (separated by space): ");
+        String[] inputs = sc.nextLine().split(" ");
+
+        int[] numbers = new int[inputs.length];
+        for (int i = 0; i < inputs.length; i++) {
+            numbers[i] = Integer.parseInt(inputs[i]);
+        }
+
+        return numbers;
+    }
+
+    public void showFailedDef(List<Word> list) {
+        for (Word word : list) {
+            System.out.println(word.getIndex() + ". " + word.getWord() + ": " + word.getDef1() + ", " + word.getDef2());
+        }
     }
 }

@@ -98,11 +98,10 @@
 
 ### Failed Note
 
-- [ ] show failDB.txt content with index word only
-- [ ] show definitions when word is chosen with index by user
-- [ ] test only with words from failDB.txt
-- [ ] empty failDB.txt without removing the file
+- [x] show definitions when word is chosen with index by user
+- [ ] makeup exam with words from failDB.txt
 - [ ] remove correctly guessed words from failDB.txt
+- [ ] empty failDB.txt without removing the file
 
 ### Edit
 

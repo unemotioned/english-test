@@ -20,7 +20,8 @@ public class MenuViewer {
         System.out.println("2 Add new");
         System.out.println("3 Edit / Delete");
         System.out.println("4 Start exam");
-        System.out.println("5 Make-up exam");
+        System.out.println("5 Show failed");
+        System.out.println("6 Make-up exam");
         System.out.println("0 Terminate");
 
         while (true) {

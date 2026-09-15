@@ -113,6 +113,36 @@ public class ExamController {
         return testList;
     }
 
+    // TODO: if none is selected
+    public void showFailed() {
+        List<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
+
+        int index = 0;
+        for (Word word : failedList) {
+            index++;
+            word.setIndex(index);
+        }
+
+        int[] inputs = examViewer.showFailed(failedList);
+        List<Word> selected = getSelected(inputs, failedList);
+
+        examViewer.showFailedDef(selected);
+    }
+
+    private List<Word> getSelected(int[] selections, List<Word> list) {
+        List<Word> selected = new ArrayList<>();
+
+        for (int j = 0; j < list.toArray().length; j++) {
+            for (int selection : selections) {
+                if (list.get(j).getIndex() == selection) {
+                    selected.add(list.get(j));
+                }
+            }
+        }
+
+        return selected;
+    }
+
     public void makeup() {
         ArrayList<Word> failList = util.readFile(Config.FAILED_WORD_FILE);
 
