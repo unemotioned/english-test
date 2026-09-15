@@ -14,7 +14,6 @@ public class MenuViewer {
     public int menu() {
         clearTerminal();
 
-        int input;
         System.out.println("===== English Test =====");
         System.out.println("1 Search");
         System.out.println("2 Add new");
@@ -24,16 +23,18 @@ public class MenuViewer {
         System.out.println("6 Make-up exam");
         System.out.println("0 Terminate");
 
+        int input;
         while (true) {
             System.out.print("=> ");
             try {
                 input = sc.nextInt();
                 sc.nextLine();
 
-                if (input >= 0 && input <= 5) {
+                // TODO: get range from menuCon
+                if (input >= 0 && input <= 6) {
                     break;
                 } else {
-                    System.out.println("Please choose 1-5 or 0");
+                    System.out.println("Please choose 1-6 or 0");
                 }
 
             } catch (InputMismatchException e) {

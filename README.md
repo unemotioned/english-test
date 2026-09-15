@@ -99,8 +99,8 @@
 ### Failed Note
 
 - [x] show definitions when word is chosen with index by user
-- [ ] makeup exam with words from failDB.txt
-- [ ] remove correctly guessed words from failDB.txt
+- [x] makeup exam with words from failDB.txt
+- [x] remove correctly guessed words from failDB.txt
 - [ ] empty failDB.txt without removing the file
 
 ### Edit

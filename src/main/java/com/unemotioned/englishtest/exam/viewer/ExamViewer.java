@@ -40,17 +40,22 @@ public class ExamViewer {
         return examType;
     }
 
-    public int numOfExam() {
+    public int numOfExam(int max) {
         int numOfExam;
+        System.out.println("Enter number of words to test 1 - " + max + " (0 to cancel)");
         while (true) {
+            System.out.print("=> ");
             try {
-                System.out.print("Enter number of words to test (0 to cancel): ");
                 numOfExam = sc.nextInt();
 
                 if (numOfExam == 0) {
                     System.out.println("Canceling Exam...\n");
+                    break;
+                } else if (numOfExam > max) {
+                    System.out.println("Maximum number of tests possible: " + max);
+                } else {
+                    break;
                 }
-                break;
 
             } catch (InputMismatchException e) {
                 System.out.println("Please input integer type.\n");
@@ -60,6 +65,7 @@ public class ExamViewer {
         return numOfExam;
     }
 
+    // TODO: handle input error
     public ArrayList<Integer> engExam(ArrayList<Word> list) {
         ArrayList<Integer> results = new ArrayList<>();
 
@@ -85,6 +91,7 @@ public class ExamViewer {
         return results;
     }
 
+    // TODO: handle input error
     public ArrayList<Integer> korExam(ArrayList<Word> list) {
         ArrayList<Integer> results = new ArrayList<>();
 
@@ -133,5 +140,30 @@ public class ExamViewer {
         for (Word word : list) {
             System.out.println(word.getIndex() + ". " + word.getWord() + ": " + word.getDef1() + ", " + word.getDef2());
         }
+    }
+
+    // TODO: handle input error
+    public ArrayList<Word> makeupExam(ArrayList<Word> list) {
+        ArrayList<Word> results = new ArrayList<>();
+
+        System.out.println("Guess word using definition.\n");
+
+        int index = 1;
+        for (Word word : list) {
+            System.out.println("\nWord(" + index + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.print("Definition: ");
+            String wordGuess = sc.next();
+
+            index--;
+            if (wordGuess.equalsIgnoreCase(word.getWord())) {
+                System.out.println("Yay!!!");
+                results.add(word);
+            } else {
+                System.out.println("Nay...");
+            }
+            index = index + 2;
+        }
+
+        return results;
     }
 }

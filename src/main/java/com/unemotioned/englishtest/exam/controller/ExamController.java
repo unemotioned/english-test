@@ -25,12 +25,13 @@ public class ExamController {
             return;
         }
 
-        int numOfExam = examViewer.numOfExam();
+        ArrayList<Word> list = menuCon.getWordList();
+        int numOfExam = examViewer.numOfExam(list.toArray().length);
         if (numOfExam == 0) {
             return;
         }
 
-        ArrayList<Word> list = getRandWords(numOfExam);
+        list = getRandWords(numOfExam, list);
         ArrayList<Integer> results;
 
         if (examType == 'e') {
@@ -87,11 +88,11 @@ public class ExamController {
         return list;
     }
 
-    private ArrayList<Word> getRandWords(int cnt) {
+    private ArrayList<Word> getRandWords(int cnt, ArrayList<Word> list) {
         Random random = new Random();
         Set<Integer> set = new TreeSet<>();
         int[] numbers = new int[cnt];
-        int numOfWords = menuCon.getWordList().toArray().length;
+        int numOfWords = list.toArray().length;
 
         for (int i = 0; i < cnt; i++) {
             set.add(random.nextInt(numOfWords));
@@ -103,11 +104,10 @@ public class ExamController {
         }
 
         // select words from that line
-        ArrayList<Word> wordList = menuCon.getWordList();
         ArrayList<Word> testList = new ArrayList<>();
 
         for (int num : numbers) {
-            testList.add(wordList.get(num));
+            testList.add(list.get(num));
         }
 
         return testList;
@@ -144,11 +144,18 @@ public class ExamController {
     }
 
     public void makeup() {
-        ArrayList<Word> failList = util.readFile(Config.FAILED_WORD_FILE);
+        ArrayList<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
+        ArrayList<Word> testList;
 
-        for (Word word : failList) {
-            int i = 0;
-            System.out.println("word(" + ++i + "): " + word.getWord());
+        int numOfExam = examViewer.numOfExam(failedList.toArray().length);
+        testList = getRandWords(numOfExam, failedList);
+
+        ArrayList<Word> correctAnswers = examViewer.makeupExam(testList);
+
+        for (Word word: correctAnswers) {
+            failedList.remove(word);
         }
+
+        util.overwrite(Config.FAILED_WORD_FILE, failedList);
     }
 }
