@@ -119,6 +119,11 @@ public class ExamController {
     public void showFailed() {
         List<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
 
+        if (failedList.toArray().length == 0) {
+            examViewer.emptyFile(Config.FAILED_WORD_FILE);
+            return;
+        }
+
         int index = 0;
         for (Word word : failedList) {
             index++;
@@ -147,6 +152,11 @@ public class ExamController {
 
     public void makeup() {
         ArrayList<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
+        if (failedList.toArray().length == 0) {
+            examViewer.emptyFile(Config.FAILED_WORD_FILE);
+            return;
+        }
+
         ArrayList<Word> testList;
 
         int numOfExam = examViewer.numOfExam(failedList.toArray().length);

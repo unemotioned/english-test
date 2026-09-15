@@ -166,4 +166,8 @@ public class ExamViewer {
 
         return results;
     }
+
+    public void emptyFile(String fileName) {
+        System.out.println("File is empty: " + fileName);
+    }
 }
