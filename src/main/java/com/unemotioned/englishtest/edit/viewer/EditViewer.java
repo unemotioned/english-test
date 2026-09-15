@@ -1,6 +1,5 @@
 package com.unemotioned.englishtest.edit.viewer;
 
-import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.vo.Word;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -46,45 +45,13 @@ public class EditViewer {
         }
     }
 
-    public void delAllRes(boolean delAllRes) {
-        if (delAllRes) {
-            System.out.println("Delete all words: success!");
-        } else {
-            System.out.println("Delete all words: failed...");
-        }
-    }
-
     public String editViewer() {
-        System.out.println("\nSearch word to edit or delete.");
-        System.out.print("Delete All / Cancel (A/C): ");
-
+        System.out.print("\nSearch word to edit or delete ([C]ancel): ");
         return sc.next();
     }
 
     public void printCancelEdit() {
         System.out.println("Canceling edit...");
-    }
-
-    public char promptDelAllConsent() {
-        System.out.println("Are you sure you want to delete all entries in " + Config.WORD_FILE + "?");
-        System.out.print("No by default (y / N): ");
-
-        char input;
-        while (true) {
-            try {
-                input = sc.next().charAt(0);
-                if (input == 'y' || input == 'N') {
-                    break;
-                } else {
-                    System.out.print("Choose between y and N: ");
-                }
-
-            } catch (InputMismatchException e) {
-                System.out.println("Please input character type.\n");
-            }
-        }
-
-        return input;
     }
 
     public void promptNotFound(String keyword) {
@@ -151,6 +118,7 @@ public class EditViewer {
     }
 
     public boolean delWordConsent() {
+        sc.nextLine();
         System.out.print("Are you sure? (y/N): ");
         while (true) {
             try {
@@ -168,5 +136,66 @@ public class EditViewer {
                 System.out.println("EditViewer.delWordConsent(): InputMismatchException");
             }
         }
+    }
+
+    public String selFile2Nuke(String[] files) {
+        String selFile = "";
+        int input;
+        int len = files.length;
+
+        System.out.println("Select file to delete it's contents (0 to cancel)");
+        for (int i = 0; i < len; i++) {
+            System.out.println(i + 1 + ": " + files[i]);
+        }
+
+        while (true) {
+            System.out.print("=> ");
+            try {
+                input = sc.nextInt();
+
+                if (input == 0) {
+                    System.out.println("Canceling Nuke...");
+                } else if (input <= len) {
+                    selFile = files[input - 1];
+                } else {
+                    System.out.println("Please select between 1-" + len);
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("EditViewer.SelFile2Nuke(): InputMismatchException");
+            }
+        }
+
+        return selFile;
+    }
+
+    public boolean confirmNuke(String fileName) {
+        boolean confirmation = false;
+        sc.nextLine();
+        String input;
+
+        System.out.println("Confirm nuking: " + fileName);
+        while (true) {
+            try {
+                System.out.print("y/N: ");
+                input = sc.nextLine().trim();
+
+                if (input.equalsIgnoreCase("y")) {
+                    confirmation = true;
+                    System.out.println("Nuclear launch detected");
+                } else if (input.isEmpty() || input.equals("N")) {
+                    System.out.println("Canceling nuke...");
+                } else {
+                    System.out.println("Choose between Yes or No");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("EditViewer.confirmNuke(): InputMismatchException");
+            }
+        }
+
+        return confirmation;
     }
 }

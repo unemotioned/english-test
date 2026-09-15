@@ -101,14 +101,12 @@
 - [x] show definitions when word is chosen with index by user
 - [x] makeup exam with words from failDB.txt
 - [x] remove correctly guessed words from failDB.txt
-- [ ] empty failDB.txt without removing the file
 
 ### Edit
 
-- [x] delete allDB.txt entries
+- [x] delete every entry from selected file
 - [x] search word and edit
 - [x] search word and delete
-- [x] option to delete all
 - [x] if more then one word is searched, number it and prompt for input
 
 ---

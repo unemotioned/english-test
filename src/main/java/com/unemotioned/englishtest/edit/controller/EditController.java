@@ -43,15 +43,6 @@ public class EditController {
 
         if (keyword.equals("C")) {
             editViewer.printCancelEdit();
-        } else if (keyword.equals("A")) {
-            final char delAllConsent = editViewer.promptDelAllConsent();
-
-            if (delAllConsent == 'y') {
-                boolean delAllRes = util.overwrite(Config.WORD_FILE, null);
-                editViewer.delAllRes(delAllRes);
-            } else {
-                editViewer.printCancelEdit();
-            }
         } else {
             ArrayList<Word> searchList = searchCon.searchWord(keyword);
 
@@ -88,5 +79,23 @@ public class EditController {
                 util.overwrite(Config.WORD_FILE, wordList);
             }
         }
+    }
+
+    public void nuke() {
+        String[] files = {Config.WORD_FILE, Config.FAILED_WORD_FILE};
+
+        // select file to nuke
+        String fileName = editViewer.selFile2Nuke(files);
+
+        if (!fileName.isEmpty()) {
+            boolean consent = editViewer.confirmNuke(fileName);
+            if (!consent) {
+                return;
+            }
+        } else {
+            return;
+        }
+
+        util.overwrite(fileName, null);
     }
 }

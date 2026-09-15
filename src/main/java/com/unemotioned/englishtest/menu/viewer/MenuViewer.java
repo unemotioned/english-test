@@ -21,6 +21,7 @@ public class MenuViewer {
         System.out.println("4 Start exam");
         System.out.println("5 Show failed");
         System.out.println("6 Make-up exam");
+        System.out.println("7 Nuclear");
         System.out.println("0 Terminate");
 
         int input;
@@ -31,10 +32,10 @@ public class MenuViewer {
                 sc.nextLine();
 
                 // TODO: get range from menuCon
-                if (input >= 0 && input <= 6) {
+                if (input >= 0 && input <= 7) {
                     break;
                 } else {
-                    System.out.println("Please choose 1-6 or 0");
+                    System.out.println("Please choose 1-7 or 0");
                 }
 
             } catch (InputMismatchException e) {

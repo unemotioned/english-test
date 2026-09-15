@@ -56,6 +56,9 @@ public class MenuController {
                 case 6:
                     examCon.makeup();
                     break;
+                case 7:
+                    editCon.nuke();
+                    break;
                 case 0:
                     mViewer.terminate();
                     return;
