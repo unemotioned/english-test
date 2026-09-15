@@ -66,10 +66,15 @@
 
 ## TODO List
 
+- [ ] wait few seconds before clearing terminal after message
+- [x] track allDB.txt.bak and create allDB.txt for program to edit
+- [ ] .txt files to always have final new line
+- [ ] uniform terminal print style
+
 ### Search
 
-- [x] Search with word
-- [x] Search with definition
+- [x] search with word
+- [x] search with definition
 - [x] fuzzy search for word
 - [x] print no word exist message
 - [x] option to cancel search
@@ -79,6 +84,8 @@
 
 - [x] get inputs of 1 word and 2 definitions
 - [x] check duplication before adding
+- [ ] check duplication of definition (editing included)
+- [ ] sort entries (editing included)
 - [x] option to cancel add
 
 ### Exam
@@ -104,7 +111,6 @@
 - [x] search word and delete
 - [x] option to delete all
 - [x] if more then one word is searched, number it and prompt for input
-- [ ] track allDB.txt.bak and create allDB.txt for program to edit
 
 ---
 

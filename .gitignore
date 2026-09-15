@@ -16,4 +16,5 @@
 
 target/
 
+allDB.txt
 failDB.txt

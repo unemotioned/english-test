@@ -15,7 +15,7 @@ public class MenuController {
     MenuViewer mViewer;
     SearchController searchCon;
     EditController editCon;
-    ExamController testCon;
+    ExamController examCon;
 
     Util util;
 
@@ -26,7 +26,7 @@ public class MenuController {
         mViewer = new MenuViewer();
         searchCon = new SearchController(this);
         editCon = new EditController(this);
-        testCon = new ExamController(this);
+        examCon = new ExamController(this);
 
         util = new Util();
         wordList = new ArrayList<>();
@@ -48,10 +48,10 @@ public class MenuController {
                     editCon.edit();
                     break;
                 case 4:
-                    testCon.exam();
+                    examCon.exam();
                     break;
                 case 5:
-                    testCon.makeup();
+                    examCon.makeup();
                     break;
                 case 0:
                     mViewer.terminate();
