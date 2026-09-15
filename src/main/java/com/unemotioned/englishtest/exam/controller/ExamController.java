@@ -94,13 +94,14 @@ public class ExamController {
         int[] numbers = new int[cnt];
         int numOfWords = list.toArray().length;
 
-        for (int i = 0; i < cnt; i++) {
+        do {
             set.add(random.nextInt(numOfWords));
-        }
+        } while (set.size() < cnt);
 
-        int i = 0;
+        int index = 0;
         for (int n : set) {
-            numbers[i++] = n;
+            numbers[index] = n;
+            index++;
         }
 
         // select words from that line
@@ -152,7 +153,7 @@ public class ExamController {
 
         ArrayList<Word> correctAnswers = examViewer.makeupExam(testList);
 
-        for (Word word: correctAnswers) {
+        for (Word word : correctAnswers) {
             failedList.remove(word);
         }
 
