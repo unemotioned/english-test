@@ -67,6 +67,8 @@ public class ExamViewer {
 
     // TODO: handle input error
     public ArrayList<Integer> engExam(ArrayList<Word> list) {
+        sc.nextLine();
+
         ArrayList<Integer> results = new ArrayList<>();
 
         System.out.println("You've selected word exam.");
@@ -76,7 +78,7 @@ public class ExamViewer {
         for (Word word : list) {
             System.out.println("\nWord(" + index + "): " + word.getWord());
             System.out.print("Guess one of definition: ");
-            String defGuess = sc.next();
+            String defGuess = sc.nextLine();
 
             index--;
             if (defGuess.equals(word.getDef1()) || defGuess.equals(word.getDef2())) {
