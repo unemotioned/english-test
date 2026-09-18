@@ -14,13 +14,11 @@ public class EditViewer {
     public Word add() {
         Word newWord = new Word();
 
-        System.out.println("\n===== Add new Word =====");
-        System.out.println("Cancel (C)");
-
-        System.out.print("\nEnter new word: ");
+        System.out.println("===== Add new Word =====");
+        System.out.print("Enter new word ([C]ancel): ");
         String input = sc.nextLine().trim();
         if (input.equals("C")) {
-            System.out.println("Cancel adding new word...\n");
+            System.out.println("Canceling add...");
             return null;
         }
         newWord.setWord(input);
@@ -34,7 +32,7 @@ public class EditViewer {
     }
 
     public void printDup(String word) {
-        System.out.println("The word: " + word + " is already saved.");
+        System.out.println("The word: " + word + " is already saved");
     }
 
     public void addRes(boolean addRes) {
@@ -46,7 +44,7 @@ public class EditViewer {
     }
 
     public String editViewer() {
-        System.out.print("\nSearch word to edit or delete ([C]ancel): ");
+        System.out.print("Search word to edit or delete ([C]ancel): ");
         return sc.next();
     }
 
@@ -61,7 +59,7 @@ public class EditViewer {
     public char editOrDel(String word) {
         char input;
 
-        System.out.println("\nEdit or Delete the word: " + word);
+        System.out.println("Edit or Delete the word: " + word);
         while (true) {
             System.out.print("Edit / Delete / Cancel (e/d/C): ");
             try {
@@ -72,21 +70,21 @@ public class EditViewer {
                     System.out.println("Canceling edit...");
                     break;
                 } else {
-                    System.out.println("Please choose between e or d.");
+                    System.out.println("Please choose between e or d");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please input character type.\n");
+                System.out.println("Please input character type");
             }
         }
         return input;
     }
 
     public Word editWord(Word word) {
-        System.out.println("\n===== Edit Word =====");
+        System.out.println("===== Edit Word =====");
         System.out.println("Word: " + word.getWord());
         System.out.println("Definition 1: " + word.getDef1());
         System.out.println("Definition 2: " + word.getDef2());
-        System.out.println("(Press enter key to skip)\n");
+        System.out.println("(Press enter key to skip)");
 
         sc.nextLine(); // consume input buffer after .nextLine()
 
@@ -133,7 +131,7 @@ public class EditViewer {
                 }
 
             } catch (InputMismatchException e) {
-                System.out.println("EditViewer.delWordConsent(): InputMismatchException");
+                System.out.println("EditViewer.delWordConsent(): InputMismatch");
             }
         }
     }
@@ -163,7 +161,7 @@ public class EditViewer {
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("EditViewer.SelFile2Nuke(): InputMismatchException");
+                System.out.println("EditViewer.SelFile2Nuke(): InputMismatch");
             }
         }
 
@@ -175,7 +173,7 @@ public class EditViewer {
         sc.nextLine();
         String input;
 
-        System.out.println("Confirm nuking: " + fileName);
+        System.out.println("Confirm nuke: " + fileName);
         while (true) {
             try {
                 System.out.print("y/N: ");
@@ -192,7 +190,7 @@ public class EditViewer {
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("EditViewer.confirmNuke(): InputMismatchException");
+                System.out.println("EditViewer.confirmNuke(): InputMismatch");
             }
         }
 

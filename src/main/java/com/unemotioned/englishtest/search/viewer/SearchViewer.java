@@ -13,33 +13,31 @@ public class SearchViewer {
     }
 
     public String searchViewer() {
-        System.out.println("\n--------------------");
-        System.out.println("Search Word / Cancel(C)");
-        System.out.print("=> ");
+        System.out.print("Search Word / Cancel(C): ");
         return sc.next();
     }
 
     public void cancelSearch() {
-        System.out.println("Canceling Search...\n");
+        System.out.println("Canceling Search...");
     }
 
     public void searchResHeader() {
-        System.out.println("\n===== Search Result =====");
+        System.out.println("===== Search Result =====");
     }
 
     public void searchRes(Word word) {
-        System.out.println("\nWord: " + word.getWord());
+        System.out.println("Word: " + word.getWord());
         System.out.println("Definitions: " + word.getDef1() + ", " + word.getDef2());
     }
 
     public int chooseWord(ArrayList<Word> wordList) {
-        System.out.println("\n===== Search Results =====\n");
+        System.out.println("===== Search Results =====");
 
         for (Word word : wordList) {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
 
-        System.out.print("\nSelect one: ");
+        System.out.print("Select one: ");
         return sc.nextInt();
     }
 

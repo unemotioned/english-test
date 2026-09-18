@@ -15,7 +15,7 @@ public class ExamViewer {
     }
 
     public char examType() {
-        System.out.println("\n===== Exam Start =====");
+        System.out.println("===== Exam Start =====");
         System.out.println("Select Type of Exam");
 
         char examType;
@@ -27,13 +27,13 @@ public class ExamViewer {
                 if (examType == 'e' || examType == 'k') {
                     break;
                 } else if (examType == 'C') {
-                    System.out.println("Canceling Exam...\n");
+                    System.out.println("Canceling Exam...");
                     break;
                 } else {
-                    System.out.println("Please choose one of e or k.\n");
+                    System.out.println("Please choose one of e or k");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please input character type.\n");
+                System.out.println("Please input character type");
             }
         }
 
@@ -49,7 +49,7 @@ public class ExamViewer {
                 numOfExam = sc.nextInt();
 
                 if (numOfExam == 0) {
-                    System.out.println("Canceling Exam...\n");
+                    System.out.println("Canceling Exam...");
                     break;
                 } else if (numOfExam > max) {
                     System.out.println("Maximum number of tests possible: " + max);
@@ -58,7 +58,7 @@ public class ExamViewer {
                 }
 
             } catch (InputMismatchException e) {
-                System.out.println("Please input integer type.\n");
+                System.out.println("Please input integer type");
             }
         }
 
@@ -71,12 +71,12 @@ public class ExamViewer {
 
         ArrayList<Integer> results = new ArrayList<>();
 
-        System.out.println("You've selected word exam.");
-        System.out.println("Guess definition using word.\n");
+        System.out.println("You've selected word exam");
+        System.out.println("Guess definition using word");
 
         int index = 1;
         for (Word word : list) {
-            System.out.println("\nWord(" + index + "): " + word.getWord());
+            System.out.println("Word(" + index + "): " + word.getWord());
             System.out.print("Guess one of definition: ");
             String defGuess = sc.nextLine().trim();
 
@@ -97,12 +97,12 @@ public class ExamViewer {
     public ArrayList<Integer> korExam(ArrayList<Word> list) {
         ArrayList<Integer> results = new ArrayList<>();
 
-        System.out.println("You've selected definition exam.");
-        System.out.println("Guess word using definition.\n");
+        System.out.println("You've selected definition exam");
+        System.out.println("Guess word using definition");
 
         int index = 1;
         for (Word word : list) {
-            System.out.println("\nWord(" + index + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.println("Word(" + index + "): " + word.getDef1() + ", " + word.getDef2());
             System.out.print("Guess word from definition: ");
             String wordGuess = sc.next();
 
@@ -120,14 +120,14 @@ public class ExamViewer {
     }
 
     public void printPerfect() {
-        System.out.println("Perfect.");
+        System.out.println("Perfect");
     }
 
     public int[] showFailed(List<Word> list) {
         for (Word word : list) {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
-        System.out.print("Select words to show definitions (separated by space): ");
+        System.out.print("Select words to show definitions (separated by space. 0 to cancel): ");
         String[] inputs = sc.nextLine().split(" ");
 
         int[] numbers = new int[inputs.length];
@@ -149,11 +149,11 @@ public class ExamViewer {
         ArrayList<Word> results = new ArrayList<>();
 
         sc.nextLine();
-        System.out.println("Guess word using definition.\n");
+        System.out.println("Guess word using definition");
 
         int index = 1;
         for (Word word : list) {
-            System.out.println("\nWord(" + index + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.println("Word(" + index + "): " + word.getDef1() + ", " + word.getDef2());
             System.out.print("Definition: ");
             String wordGuess = sc.nextLine().trim();
 
