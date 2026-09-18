@@ -148,13 +148,14 @@ public class ExamViewer {
     public ArrayList<Word> makeupExam(ArrayList<Word> list) {
         ArrayList<Word> results = new ArrayList<>();
 
+        sc.nextLine();
         System.out.println("Guess word using definition.\n");
 
         int index = 1;
         for (Word word : list) {
             System.out.println("\nWord(" + index + "): " + word.getDef1() + ", " + word.getDef2());
             System.out.print("Definition: ");
-            String wordGuess = sc.next();
+            String wordGuess = sc.nextLine().trim();
 
             index--;
             if (wordGuess.equalsIgnoreCase(word.getWord())) {
