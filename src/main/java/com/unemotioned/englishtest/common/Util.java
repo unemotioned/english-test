@@ -108,7 +108,10 @@ public class Util {
 
             for (Word word : list) {
                 bw.write(wordToString(word));
-                bw.newLine();
+
+                if (list.indexOf(word) != list.toArray().length - 1) {
+                    bw.newLine();
+                }
             }
             return true;
         } catch (IOException e) {
