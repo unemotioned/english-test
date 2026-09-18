@@ -59,11 +59,7 @@ public class ExamController {
             util.createFile(fileName);
         }
 
-        for (Word word : failedList) {
-            if (prevFailed.contains(word)) {
-                failedList.remove(word);
-            }
-        }
+        failedList.removeIf(prevFailed::contains);
 
         if (!failedList.isEmpty()) {
             util.appendToFile(failedList, Config.FAILED_WORD_FILE);

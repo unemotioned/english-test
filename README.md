@@ -113,4 +113,4 @@
 
 ## BUG
 
-- [ ] getting 100 words wrong adds duplicated words to end of failDB.txt
+- [x] getting 100 words wrong adds duplicated words to end of failDB.txt
