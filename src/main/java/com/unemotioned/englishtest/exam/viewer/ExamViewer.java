@@ -78,7 +78,7 @@ public class ExamViewer {
         for (Word word : list) {
             System.out.println("\nWord(" + index + "): " + word.getWord());
             System.out.print("Guess one of definition: ");
-            String defGuess = sc.nextLine();
+            String defGuess = sc.nextLine().trim();
 
             index--;
             if (defGuess.equals(word.getDef1()) || defGuess.equals(word.getDef2())) {

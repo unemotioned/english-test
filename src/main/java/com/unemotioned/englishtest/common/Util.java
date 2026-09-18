@@ -57,7 +57,6 @@ public class Util {
             return true;
         } catch (IOException e) {
             System.out.println("Util.appendToFile(): IOException");
-
             return false;
         }
     }
@@ -80,24 +79,23 @@ public class Util {
     }
 
     private boolean emptyLastLine(String fileName) {
-        boolean isPrevLineEmpty = false;
         String lastLine = null;
 
         try (LineNumberReader lnr = new LineNumberReader(new FileReader(fileName))) {
-            while (lnr.readLine() != null) {
-                lastLine = lnr.readLine();
+            String line;
+
+            while ((line = lnr.readLine()) != null) {
+                lastLine = line;
             }
 
-            if (lastLine == null) {
-                isPrevLineEmpty = true;
-            }
+            return lastLine == null || lastLine.isEmpty();
+
         } catch (FileNotFoundException e) {
             System.out.println("Util.emptyLastLine(): FileNotFound");
         } catch (IOException e) {
             System.out.println("Util.emptyLastLine(): IOException");
         }
-
-        return isPrevLineEmpty;
+        return false;
     }
 
     public boolean overwrite(String fileName, ArrayList<Word> list) {

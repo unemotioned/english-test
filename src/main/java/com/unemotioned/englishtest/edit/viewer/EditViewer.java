@@ -18,7 +18,7 @@ public class EditViewer {
         System.out.println("Cancel (C)");
 
         System.out.print("\nEnter new word: ");
-        String input = sc.next();
+        String input = sc.nextLine().trim();
         if (input.equals("C")) {
             System.out.println("Cancel adding new word...\n");
             return null;
@@ -26,9 +26,9 @@ public class EditViewer {
         newWord.setWord(input);
 
         System.out.print("Definition (1/2): ");
-        newWord.setDef1(sc.next());
+        newWord.setDef1(sc.nextLine().trim());
         System.out.print("Definition (2/2): ");
-        newWord.setDef2(sc.next());
+        newWord.setDef2(sc.nextLine().trim());
 
         return newWord;
     }
