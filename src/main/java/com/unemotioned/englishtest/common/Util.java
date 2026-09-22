@@ -1,10 +1,25 @@
 package com.unemotioned.englishtest.common;
 
+import com.unemotioned.englishtest.common.vo.MenuOpt;
 import com.unemotioned.englishtest.common.vo.Word;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class Util {
+
+    public int[] menuMinMax() {
+        int[] minMax = new int[2];
+        MenuOpt[] opt = MenuOpt.values();
+
+        MenuOpt min = opt[0];
+        MenuOpt max = opt[opt.length - 1];
+
+        minMax[0] = min.ordinal();
+        minMax[1] = max.ordinal();
+
+        return minMax;
+    }
 
     public ArrayList<Word> readFile(String fileName) {
         ArrayList<Word> list = new ArrayList<>();

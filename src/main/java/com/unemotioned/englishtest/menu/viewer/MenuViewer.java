@@ -1,17 +1,22 @@
 package com.unemotioned.englishtest.menu.viewer;
 
+import com.unemotioned.englishtest.common.Util;
+import com.unemotioned.englishtest.common.vo.MenuOpt;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuViewer {
+    Util util;
     Scanner sc;
 
     public MenuViewer() {
+        util = new Util();
         sc = new Scanner(System.in);
     }
 
-    public int menu() {
+    public MenuOpt menu() {
         clearTerminal();
 
         System.out.println("===== English Test =====");
@@ -24,6 +29,9 @@ public class MenuViewer {
         System.out.println("7 Nuclear");
         System.out.println("0 Terminate");
 
+        final int minOpt = util.menuMinMax()[0];
+        final int maxOpt = util.menuMinMax()[1];
+
         int input;
         while (true) {
             System.out.print("=> ");
@@ -31,18 +39,28 @@ public class MenuViewer {
                 input = sc.nextInt();
                 sc.nextLine();
 
-                // TODO: get range from menuCon
-                if (input >= 0 && input <= 7) {
+                if (input >= minOpt && input <= maxOpt) {
                     break;
                 } else {
-                    System.out.println("Please choose 1-7 or 0");
+                    System.out.println("Please choose between " + minOpt + " and " + maxOpt);
                 }
 
             } catch (InputMismatchException e) {
                 System.out.println("Please input integer type");
             }
         }
-        return input;
+
+        return switch (input) {
+            case 1 -> MenuOpt.SEARCH;
+            case 2 -> MenuOpt.ADD;
+            case 3 -> MenuOpt.EDIT;
+            case 4 -> MenuOpt.EXAM;
+            case 5 -> MenuOpt.SHOW;
+            case 6 -> MenuOpt.MAKEUP;
+            case 7 -> MenuOpt.NUKE;
+            case 0 -> MenuOpt.TERMINATE;
+            default -> throw new IllegalArgumentException("foobar");
+        };
     }
 
     private void clearTerminal() {

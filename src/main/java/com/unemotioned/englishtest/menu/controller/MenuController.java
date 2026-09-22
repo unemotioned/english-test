@@ -2,6 +2,7 @@ package com.unemotioned.englishtest.menu.controller;
 
 import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.Util;
+import com.unemotioned.englishtest.common.vo.MenuOpt;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.edit.controller.EditController;
 import com.unemotioned.englishtest.exam.controller.ExamController;
@@ -36,30 +37,30 @@ public class MenuController {
         while (true) {
             wordList = util.readFile(Config.WORD_FILE);
 
-            int menu = mViewer.menu();
+            MenuOpt menu = mViewer.menu();
             switch (menu) {
-                case 1:
+                case SEARCH:
                     searchCon.search();
                     break;
-                case 2:
+                case ADD:
                     editCon.add();
                     break;
-                case 3:
+                case EDIT:
                     editCon.edit();
                     break;
-                case 4:
+                case EXAM:
                     examCon.exam();
                     break;
-                case 5:
+                case SHOW:
                     examCon.showFailed();
                     break;
-                case 6:
+                case MAKEUP:
                     examCon.makeup();
                     break;
-                case 7:
+                case NUKE:
                     editCon.nuke();
                     break;
-                case 0:
+                case TERMINATE:
                     mViewer.terminate();
                     return;
                 default:
