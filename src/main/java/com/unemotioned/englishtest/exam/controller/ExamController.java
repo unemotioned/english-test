@@ -125,13 +125,15 @@ public class ExamController {
             word.setIndex(index);
         }
 
-        int[] inputs = examViewer.showFailed(failedList);
-        if (inputs.length == 1 && inputs[0] == 0) {
-            return;
-        }
+        while (true) {
+            int[] inputs = examViewer.showFailed(failedList);
+            if (inputs.length == 1 && inputs[0] == 0) {
+                break;
+            }
 
-        List<Word> selected = getSelected(inputs, failedList);
-        examViewer.showFailedDef(selected);
+            List<Word> selected = getSelected(inputs, failedList);
+            examViewer.showFailedDef(selected);
+        }
     }
 
     private List<Word> getSelected(int[] selections, List<Word> list) {
