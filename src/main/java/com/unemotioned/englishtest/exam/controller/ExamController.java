@@ -111,7 +111,6 @@ public class ExamController {
         return testList;
     }
 
-    // TODO: if none is selected
     public void showFailed() {
         List<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
 
@@ -127,8 +126,11 @@ public class ExamController {
         }
 
         int[] inputs = examViewer.showFailed(failedList);
-        List<Word> selected = getSelected(inputs, failedList);
+        if (inputs.length == 1 && inputs[0] == 0) {
+            return;
+        }
 
+        List<Word> selected = getSelected(inputs, failedList);
         examViewer.showFailedDef(selected);
     }
 
