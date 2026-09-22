@@ -126,12 +126,27 @@ public class ExamViewer {
         for (Word word : list) {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
-        System.out.print("Select words to show definitions (separated by space. 0 to cancel): ");
-        String[] inputs = sc.nextLine().trim().split(" ");
 
-        int[] numbers = new int[inputs.length];
-        for (int i = 0; i < inputs.length; i++) {
-            numbers[i] = Integer.parseInt(inputs[i]);
+        String[] inputs;
+        int[] numbers;
+
+        while (true) {
+            System.out.print("Select words to show definitions (separated by space. 0 to cancel): ");
+
+            try {
+                // replace more than one space into singe space character
+                inputs = sc.nextLine().trim().replaceAll("\\s+", " ").split(" ");
+
+                numbers = new int[inputs.length];
+                for (int i = 0; i < inputs.length; i++) {
+                    numbers[i] = Integer.parseInt(inputs[i]);
+                }
+
+                break;
+            } catch (NumberFormatException e) {
+                // TODO: show definitions of all words
+                System.out.println("Please input integer type");
+            }
         }
 
         return numbers;
