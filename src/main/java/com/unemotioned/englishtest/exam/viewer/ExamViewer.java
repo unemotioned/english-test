@@ -65,7 +65,6 @@ public class ExamViewer {
         return numOfExam;
     }
 
-    // TODO: handle input error
     public ArrayList<Integer> engExam(ArrayList<Word> list) {
         sc.nextLine();
 
@@ -93,7 +92,6 @@ public class ExamViewer {
         return results;
     }
 
-    // TODO: handle input error
     public ArrayList<Integer> korExam(ArrayList<Word> list) {
         ArrayList<Integer> results = new ArrayList<>();
 
@@ -144,7 +142,6 @@ public class ExamViewer {
         }
     }
 
-    // TODO: handle input error
     public ArrayList<Word> makeupExam(ArrayList<Word> list) {
         ArrayList<Word> results = new ArrayList<>();
 

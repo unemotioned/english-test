@@ -158,6 +158,9 @@ public class ExamController {
         ArrayList<Word> testList;
 
         int numOfExam = examViewer.numOfExam(failedList.toArray().length);
+        if (numOfExam == 0) {
+            return;
+        }
         testList = getRandWords(numOfExam, failedList);
 
         ArrayList<Word> correctAnswers = examViewer.makeupExam(testList);
