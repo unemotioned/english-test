@@ -14,12 +14,8 @@ public class SearchViewer {
     }
 
     public String searchViewer() {
-        System.out.print("Search Word / [C]ancel: ");
+        System.out.print("Search Word ([C]ancel): ");
         return sc.nextLine().trim();
-    }
-
-    public void cancelSearch() {
-        System.out.println("Canceling Search...");
     }
 
     public void searchResHeader() {
@@ -31,6 +27,7 @@ public class SearchViewer {
         System.out.println("Definitions: " + word.getDef1() + ", " + word.getDef2());
     }
 
+    // TODO: cancel by entering 0
     public int chooseWord(ArrayList<Word> list) {
         System.out.println("===== Search Results =====");
 

@@ -1,28 +1,32 @@
 package com.unemotioned.englishtest.edit.viewer;
 
+import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.vo.Word;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EditViewer {
     Scanner sc;
+    CommonViewer cViewer;
 
     public EditViewer() {
         sc = new Scanner(System.in);
+        cViewer = new CommonViewer();
     }
 
     public Word add() {
         Word newWord = new Word();
 
-        System.out.println("===== Add new Word =====");
+        System.out.println("===== Add New Word =====");
         System.out.print("Enter new word ([C]ancel): ");
         String input = sc.nextLine().trim();
         if (input.equals("C")) {
-            System.out.println("Canceling add...");
+            cViewer.promptCancel("add");
             return null;
         }
         newWord.setWord(input);
 
+        // TODO: check duplication of definition
         System.out.print("Definition (1/2): ");
         newWord.setDef1(sc.nextLine().trim());
         System.out.print("Definition (2/2): ");
@@ -32,7 +36,7 @@ public class EditViewer {
     }
 
     public void printDup(String word) {
-        System.out.println("The word: " + word + " is already saved");
+        System.out.println("Duplicated: " + word);
     }
 
     public void addRes(boolean addRes) {
@@ -43,13 +47,8 @@ public class EditViewer {
         }
     }
 
-    public String editViewer() {
-        System.out.print("Search word to edit or delete ([C]ancel): ");
-        return sc.next();
-    }
-
-    public void printCancelEdit() {
-        System.out.println("Canceling edit...");
+    public void editHeader() {
+        System.out.println("===== Edit / Delete =====");
     }
 
     public void promptNotFound(String keyword) {
@@ -67,10 +66,10 @@ public class EditViewer {
                 if (input == 'e' || input == 'd') {
                     break;
                 } else if (input == 'C') {
-                    System.out.println("Canceling edit...");
+                    cViewer.promptCancel("edit");
                     break;
                 } else {
-                    System.out.println("Please choose between e or d");
+                    System.out.println("Please choose e or d");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Please input character type");
@@ -86,7 +85,7 @@ public class EditViewer {
         System.out.println("Definition 2: " + word.getDef2());
         System.out.println("(Press enter key to skip)");
 
-        sc.nextLine(); // consume input buffer after .nextLine()
+        sc.nextLine();
 
         word.setWord(editOrSkip("Edit word: ", word.getWord()));
         word.setDef1(editOrSkip("Edit def1: ", word.getDef1()));
@@ -106,7 +105,7 @@ public class EditViewer {
         return input;
     }
 
-    // prompt what is changed to what
+    // TODO: prompt what is changed to what
     public void editRes(boolean res) {
         if (res) {
             System.out.println("Edit word: Success!");
@@ -152,7 +151,7 @@ public class EditViewer {
                 input = sc.nextInt();
 
                 if (input == 0) {
-                    System.out.println("Canceling Nuke...");
+                    cViewer.promptCancel("nuke");
                 } else if (input <= len) {
                     selFile = files[input - 1];
                 } else {
@@ -161,7 +160,7 @@ public class EditViewer {
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("EditViewer.SelFile2Nuke(): InputMismatch");
+                System.out.println("EditViewer.selFile2Nuke(): InputMismatch");
             }
         }
 
@@ -183,7 +182,7 @@ public class EditViewer {
                     confirmation = true;
                     System.out.println("Nuclear launch detected");
                 } else if (input.isEmpty() || input.equals("N")) {
-                    System.out.println("Canceling nuke...");
+                    cViewer.promptCancel("nuke");
                 } else {
                     System.out.println("Choose between Yes or No");
                     continue;

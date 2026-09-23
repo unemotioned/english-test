@@ -1,5 +1,6 @@
 package com.unemotioned.englishtest.exam.viewer;
 
+import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.vo.Word;
 
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.Scanner;
 
 public class ExamViewer {
     Scanner sc;
+    CommonViewer cViewer;
 
     public ExamViewer() {
         sc = new Scanner(System.in);
+        cViewer = new CommonViewer();
     }
 
     public char examType() {
@@ -27,7 +30,7 @@ public class ExamViewer {
                 if (examType == 'e' || examType == 'k') {
                     break;
                 } else if (examType == 'C') {
-                    System.out.println("Canceling Exam...");
+                    cViewer.promptCancel("exam");
                     break;
                 } else {
                     System.out.println("Please choose one of e or k");
@@ -49,7 +52,7 @@ public class ExamViewer {
                 numOfExam = sc.nextInt();
 
                 if (numOfExam == 0) {
-                    System.out.println("Canceling Exam...");
+                    cViewer.promptCancel("exam");
                     break;
                 } else if (numOfExam > max) {
                     System.out.println("Maximum number of tests possible: " + max);
@@ -121,6 +124,7 @@ public class ExamViewer {
         System.out.println("Perfect");
     }
 
+    // TODO: if selection is out of range
     public int[] showFailed(List<Word> list) {
         System.out.println("===== Show Failed =====");
         for (Word word : list) {
@@ -144,8 +148,7 @@ public class ExamViewer {
 
                 break;
             } catch (NumberFormatException e) {
-
-                assert inputs != null : "ExamViewer.showFailed().String[] inputs is not null";
+                assert inputs != null : "ExamViewer.showFailed().inputs is not null";
                 if (inputs[0].equals("A")) {
                     numbers = new int[list.toArray().length];
                     for (int i = 0; i < list.toArray().length + 1; i++) {

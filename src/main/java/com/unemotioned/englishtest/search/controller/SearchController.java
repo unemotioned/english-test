@@ -1,5 +1,6 @@
 package com.unemotioned.englishtest.search.controller;
 
+import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.viewer.SearchViewer;
@@ -11,10 +12,12 @@ public class SearchController {
 
     MenuController menuCon;
     SearchViewer searchViewer;
+    CommonViewer cViewer;
 
     public SearchController(MenuController menuCon) {
         this.menuCon = menuCon;
         searchViewer = new SearchViewer();
+        cViewer = new CommonViewer();
     }
 
     public void search() {
@@ -25,7 +28,7 @@ public class SearchController {
             searchWord = searchViewer.searchViewer();
 
             if (searchWord.equals("C")) {
-                searchViewer.cancelSearch();
+                cViewer.promptCancel("search");
                 break;
             }
 
