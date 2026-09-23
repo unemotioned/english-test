@@ -62,7 +62,7 @@ public class Util {
     }
 
     public boolean appendToFile(Word word, String fileName) {
-        boolean isLastLineEmpty = emptyLastLine(fileName);
+        boolean isLastLineEmpty = checkLastLine(fileName);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
             if (!isLastLineEmpty) {
@@ -77,7 +77,7 @@ public class Util {
     }
 
     public void appendToFile(ArrayList<Word> entries, String fileName) {
-        boolean isLastLineEmpty = emptyLastLine(fileName);
+        boolean isLastLineEmpty = checkLastLine(fileName);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Word word : entries) {
@@ -93,7 +93,7 @@ public class Util {
         }
     }
 
-    private boolean emptyLastLine(String fileName) {
+    private boolean checkLastLine(String fileName) {
         String lastLine = null;
 
         try (LineNumberReader lnr = new LineNumberReader(new FileReader(fileName))) {
