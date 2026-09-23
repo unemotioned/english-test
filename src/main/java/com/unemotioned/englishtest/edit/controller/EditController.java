@@ -1,5 +1,6 @@
 package com.unemotioned.englishtest.edit.controller;
 
+import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.Config;
 import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
@@ -15,6 +16,7 @@ public class EditController {
     SearchController searchCon;
     SearchViewer searchViewer;
     Util util;
+    CommonViewer cViewer;
 
     public EditController(MenuController menuCon) {
         editViewer = new EditViewer();
@@ -22,6 +24,7 @@ public class EditController {
         searchCon = new SearchController(menuCon);
         searchViewer = new SearchViewer();
         util = new Util();
+        cViewer = new CommonViewer();
     }
 
     public void add() {
@@ -39,21 +42,22 @@ public class EditController {
     }
 
     public void edit() {
-        String keyword = editViewer.editViewer();
-
+        editViewer.editHeader();
+        String keyword = searchViewer.searchViewer();
         if (keyword.equals("C")) {
-            editViewer.printCancelEdit();
-        } else {
-            ArrayList<Word> searchList = searchCon.searchWord(keyword);
+            cViewer.promptCancel("edit");
+            return;
+        }
 
-            if (searchList.isEmpty()) {
-                editViewer.promptNotFound(keyword);
-            } else if (searchList.toArray().length == 1) {
-                editOrDel(searchList.getFirst());
-            } else {
-                int index = searchViewer.chooseWord(searchList);
-                editOrDel(searchList.get(--index));
-            }
+        ArrayList<Word> searchList = searchCon.searchWord(keyword);
+
+        if (searchList.isEmpty()) {
+            editViewer.promptNotFound(keyword);
+        } else if (searchList.toArray().length == 1) {
+            editOrDel(searchList.getFirst());
+        } else {
+            int index = searchViewer.chooseWord(searchList);
+            editOrDel(searchList.get(--index));
         }
     }
 
@@ -83,8 +87,6 @@ public class EditController {
 
     public void nuke() {
         String[] files = {Config.WORD_FILE, Config.FAILED_WORD_FILE};
-
-        // select file to nuke
         String fileName = editViewer.selFile2Nuke(files);
 
         if (!fileName.isEmpty()) {
