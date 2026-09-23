@@ -3,6 +3,7 @@ package com.unemotioned.englishtest.search.viewer;
 import com.unemotioned.englishtest.common.vo.Word;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SearchViewer {
@@ -13,8 +14,8 @@ public class SearchViewer {
     }
 
     public String searchViewer() {
-        System.out.print("Search Word / Cancel(C): ");
-        return sc.next();
+        System.out.print("Search Word / [C]ancel: ");
+        return sc.nextLine().trim();
     }
 
     public void cancelSearch() {
@@ -30,18 +31,38 @@ public class SearchViewer {
         System.out.println("Definitions: " + word.getDef1() + ", " + word.getDef2());
     }
 
-    public int chooseWord(ArrayList<Word> wordList) {
+    public int chooseWord(ArrayList<Word> list) {
         System.out.println("===== Search Results =====");
 
-        for (Word word : wordList) {
+        for (Word word : list) {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
 
-        System.out.print("Select one: ");
-        return sc.nextInt();
+        int listLen = list.toArray().length;
+        int sel;
+
+        while (true) {
+            System.out.print("Select one: ");
+            try {
+                sel = sc.nextInt();
+
+                if (sel > 0 && sel < listLen) {
+                    break;
+                } else {
+                    System.out.println("Please choose between 1-" + listLen);
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Please input integer type");
+                // consume input buffer and go back to start of the while loop
+                sc.nextLine();
+            }
+        }
+
+        return sel;
     }
 
     public void noSearchResults(String searchedWord) {
-        System.out.println("No such words: " + searchedWord);
+        System.out.println("Not found: " + searchedWord);
     }
 }
