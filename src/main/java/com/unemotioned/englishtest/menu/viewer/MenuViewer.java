@@ -29,8 +29,9 @@ public class MenuViewer {
         System.out.println("7 Nuclear");
         System.out.println("0 Terminate");
 
-        final int minOpt = util.menuMinMax()[0];
-        final int maxOpt = util.menuMinMax()[1];
+        int[] minMax = util.menuMinMax();
+        final int minOpt = minMax[0];
+        final int maxOpt = minMax[1];
 
         int input;
         while (true) {
@@ -59,7 +60,7 @@ public class MenuViewer {
             case 6 -> MenuOpt.MAKEUP;
             case 7 -> MenuOpt.NUKE;
             case 0 -> MenuOpt.TERMINATE;
-            default -> throw new IllegalArgumentException("foobar");
+            default -> throw new IllegalArgumentException("Please input integer type");
         };
     }
 
@@ -74,7 +75,7 @@ public class MenuViewer {
             }
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.out.println("Util.clearTerminal() failed." + e);
+            System.out.println("MenuViewer.clearTerminal(): Exception");
         }
     }
 
