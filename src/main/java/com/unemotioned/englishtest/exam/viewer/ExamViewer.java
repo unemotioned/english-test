@@ -148,7 +148,7 @@ public class ExamViewer {
                 assert inputs != null : "ExamViewer.showFailed().String[] inputs is not null";
                 if (inputs[0].equals("A")) {
                     numbers = new int[list.toArray().length];
-                    for (int i = 0; i < list.toArray().length; i++) {
+                    for (int i = 0; i < list.toArray().length + 1; i++) {
                         numbers[i] = i;
                     }
 
