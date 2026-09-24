@@ -2,7 +2,6 @@ package com.unemotioned.englishtest.menu.viewer;
 
 import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.MenuOpt;
-
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;

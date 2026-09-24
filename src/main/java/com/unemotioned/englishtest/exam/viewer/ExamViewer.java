@@ -2,7 +2,6 @@ package com.unemotioned.englishtest.exam.viewer;
 
 import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;

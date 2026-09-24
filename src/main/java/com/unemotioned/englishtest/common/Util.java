@@ -2,7 +2,6 @@ package com.unemotioned.englishtest.common;
 
 import com.unemotioned.englishtest.common.vo.MenuOpt;
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.io.*;
 import java.util.ArrayList;
 

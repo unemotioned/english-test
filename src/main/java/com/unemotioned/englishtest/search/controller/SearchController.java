@@ -46,7 +46,12 @@ public class SearchController {
                 searchViewer.searchRes(wordList.getFirst());
             } else {
                 int index = searchViewer.chooseWord(wordList);
-                searchViewer.searchRes(wordList.get(--index));
+
+                if (index > 0) {
+                    searchViewer.searchRes(wordList.get(--index));
+                } else {
+                    return;
+                }
             }
         }
     }
