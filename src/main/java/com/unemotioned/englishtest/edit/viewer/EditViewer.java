@@ -105,10 +105,10 @@ public class EditViewer {
         return input;
     }
 
-    // TODO: prompt what is changed to what
-    public void editRes(boolean res) {
+    public void editRes(boolean res, String from, String to) {
         if (res) {
             System.out.println("Edit word: Success!");
+            System.out.println(from + " -> " + to);
         } else {
             System.out.println("Edit word: Failed...");
         }

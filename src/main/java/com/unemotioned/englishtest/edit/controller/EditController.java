@@ -62,7 +62,8 @@ public class EditController {
     }
 
     private void editOrDel(Word word) {
-        char input = editViewer.editOrDel(word.getWord());
+        final String og = word.getWord();
+        char input = editViewer.editOrDel(og);
         ArrayList<Word> wordList = menuCon.getWordList();
 
         if (input == 'e') {
@@ -74,7 +75,7 @@ public class EditController {
             }
 
             boolean editRes = util.overwrite(Config.WORD_FILE, wordList);
-            editViewer.editRes(editRes);
+            editViewer.editRes(editRes, og, editedWord.getWord());
 
         } else if (input == 'd') {
             boolean delWord = editViewer.delWordConsent();
