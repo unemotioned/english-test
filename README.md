@@ -4,11 +4,6 @@
 - 입/출력 시, 문자 스트림 사용 (보조 스트림 사용)
 - ArrayList의 데이터가 변화되는 시점과 동시에 파일 내용에도 동기화 필요
 
-## Archive
-
-- [Compile](./archive/compile.md)
-- [Maven](./archive/maven.md)
-
 ## Table of Contents
 
 - [1. 단어 검색](#1-단어-검색)
