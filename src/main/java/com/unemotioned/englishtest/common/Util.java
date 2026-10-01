@@ -120,10 +120,11 @@ public class Util {
                 return true;
             }
 
-            for (Word word : list) {
-                bw.write(wordToString(word));
+            int size = list.size();
+            for (int i = 0; i < size; i++) {
+                bw.write(wordToString(list.get(i)));
 
-                if (list.indexOf(word) != list.toArray().length - 1) {
+                if (i != size - 1) {
                     bw.newLine();
                 }
             }
