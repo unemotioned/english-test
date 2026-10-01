@@ -8,8 +8,10 @@ import com.unemotioned.englishtest.edit.controller.EditController;
 import com.unemotioned.englishtest.exam.controller.ExamController;
 import com.unemotioned.englishtest.menu.viewer.MenuViewer;
 import com.unemotioned.englishtest.search.controller.SearchController;
-import java.util.ArrayList;
 import lombok.Getter;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class MenuController {
     MenuViewer mViewer;
@@ -21,6 +23,8 @@ public class MenuController {
 
     @Getter
     ArrayList<Word> wordList;
+
+    private long lastModified = 0;
 
     public MenuController() {
         mViewer = new MenuViewer();
@@ -34,7 +38,13 @@ public class MenuController {
 
     public void mainMenu() {
         while (true) {
-            wordList = util.readFile(Config.WORD_FILE);
+            File wordFile = new File(Config.WORD_FILE);
+            long currentModified = wordFile.lastModified();
+
+            if (currentModified != lastModified) {
+                wordList = util.readFile(Config.WORD_FILE);
+                lastModified = currentModified;
+            }
 
             MenuOpt menu = mViewer.menu();
             switch (menu) {
