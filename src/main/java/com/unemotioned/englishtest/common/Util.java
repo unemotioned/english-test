@@ -3,6 +3,7 @@ package com.unemotioned.englishtest.common;
 import com.unemotioned.englishtest.common.vo.MenuOpt;
 import com.unemotioned.englishtest.common.vo.Word;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Util {
@@ -93,23 +94,40 @@ public class Util {
     }
 
     private boolean checkLastLine(String fileName) {
-        String lastLine = null;
-
-        try (LineNumberReader lnr = new LineNumberReader(new FileReader(fileName))) {
-            String line;
-
-            while ((line = lnr.readLine()) != null) {
-                lastLine = line;
-            }
-
-            return lastLine == null || lastLine.isEmpty();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Util.emptyLastLine(): FileNotFound");
-        } catch (IOException e) {
-            System.out.println("Util.emptyLastLine(): IOException");
+        File file = new File(fileName);
+        if (!file.exists() || file.length() == 0) {
+            return true;
         }
-        return false;
+
+        // read any position of file without iterating
+        // works in byte level
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+            long length = raf.length();
+            if (length == 0) return true;
+
+            // read last 2 bytes
+            long pos = Math.max(0, length - 2);
+            raf.seek(pos);
+
+            byte[] lastBytes = new byte[(int) (length - pos)];
+            raf.readFully(lastBytes);
+
+            // check for LF or CRLF
+            for (int i = lastBytes.length - 1; i >= 0; i--) {
+                byte b = lastBytes[i];
+                if (b == '\n' || b == '\r') {
+                    return true;
+                }
+                if (b != ' ' && b != '\t') {
+                    break;
+                }
+            }
+            return false;
+
+        } catch (IOException e) {
+            System.out.println("Util.checkLastLine(): IOException");
+            return false;
+        }
     }
 
     public boolean overwrite(String fileName, ArrayList<Word> list) {
