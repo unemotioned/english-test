@@ -10,8 +10,8 @@ public class SearchViewer {
     Scanner sc;
     CommonViewer cViewer;
 
-    public SearchViewer() {
-        sc = new Scanner(System.in);
+    public SearchViewer(Scanner scanner) {
+        sc = scanner;
         cViewer = new CommonViewer();
     }
 

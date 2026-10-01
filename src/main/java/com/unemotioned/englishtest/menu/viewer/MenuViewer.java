@@ -10,9 +10,9 @@ public class MenuViewer {
     Util util;
     Scanner sc;
 
-    public MenuViewer() {
+    public MenuViewer(Scanner scanner) {
         util = new Util();
-        sc = new Scanner(System.in);
+        sc = scanner;
     }
 
     public MenuOpt menu() {
@@ -46,6 +46,7 @@ public class MenuViewer {
                 }
 
             } catch (InputMismatchException e) {
+                sc.nextLine();
                 System.out.println("Please input integer type");
             }
         }

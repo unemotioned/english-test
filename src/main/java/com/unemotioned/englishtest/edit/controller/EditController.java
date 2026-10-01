@@ -9,6 +9,7 @@ import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.controller.SearchController;
 import com.unemotioned.englishtest.search.viewer.SearchViewer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EditController {
     EditViewer editViewer;
@@ -18,11 +19,11 @@ public class EditController {
     Util util;
     CommonViewer cViewer;
 
-    public EditController(MenuController menuCon) {
-        editViewer = new EditViewer();
+    public EditController(MenuController menuCon, Scanner scanner) {
+        editViewer = new EditViewer(scanner);
         this.menuCon = menuCon;
-        searchCon = new SearchController(menuCon);
-        searchViewer = new SearchViewer();
+        searchCon = new SearchController(menuCon, scanner);
+        searchViewer = new SearchViewer(scanner);
         util = new Util();
         cViewer = new CommonViewer();
     }

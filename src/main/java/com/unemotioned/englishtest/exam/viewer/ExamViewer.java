@@ -11,8 +11,8 @@ public class ExamViewer {
     Scanner sc;
     CommonViewer cViewer;
 
-    public ExamViewer() {
-        sc = new Scanner(System.in);
+    public ExamViewer(Scanner scanner) {
+        sc = scanner;
         cViewer = new CommonViewer();
     }
 
@@ -60,6 +60,7 @@ public class ExamViewer {
                 }
 
             } catch (InputMismatchException e) {
+                sc.nextLine();
                 System.out.println("Please input integer type");
             }
         }

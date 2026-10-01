@@ -13,8 +13,8 @@ public class ExamController {
     MenuController menuCon;
     Util util;
 
-    public ExamController(MenuController menuCon) {
-        examViewer = new ExamViewer();
+    public ExamController(MenuController menuCon, Scanner scanner) {
+        examViewer = new ExamViewer(scanner);
         this.menuCon = menuCon;
         util = new Util();
     }

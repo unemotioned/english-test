@@ -12,6 +12,7 @@ import lombok.Getter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MenuController {
     MenuViewer mViewer;
@@ -26,11 +27,11 @@ public class MenuController {
 
     private long lastModified = 0;
 
-    public MenuController() {
-        mViewer = new MenuViewer();
-        searchCon = new SearchController(this);
-        editCon = new EditController(this);
-        examCon = new ExamController(this);
+    public MenuController(Scanner scanner) {
+        mViewer = new MenuViewer(scanner);
+        searchCon = new SearchController(this, scanner);
+        editCon = new EditController(this, scanner);
+        examCon = new ExamController(this, scanner);
 
         util = new Util();
         wordList = new ArrayList<>();

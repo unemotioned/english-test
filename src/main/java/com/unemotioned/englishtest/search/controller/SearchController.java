@@ -5,6 +5,7 @@ import com.unemotioned.englishtest.common.vo.Word;
 import com.unemotioned.englishtest.menu.controller.MenuController;
 import com.unemotioned.englishtest.search.viewer.SearchViewer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SearchController {
     final short asciiLowerA = 65;
@@ -14,9 +15,9 @@ public class SearchController {
     SearchViewer searchViewer;
     CommonViewer cViewer;
 
-    public SearchController(MenuController menuCon) {
+    public SearchController(MenuController menuCon, Scanner scanner) {
         this.menuCon = menuCon;
-        searchViewer = new SearchViewer();
+        searchViewer = new SearchViewer(scanner);
         cViewer = new CommonViewer();
     }
 

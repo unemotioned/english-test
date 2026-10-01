@@ -9,8 +9,8 @@ public class EditViewer {
     Scanner sc;
     CommonViewer cViewer;
 
-    public EditViewer() {
-        sc = new Scanner(System.in);
+    public EditViewer(Scanner scanner) {
+        sc = scanner;
         cViewer = new CommonViewer();
     }
 
@@ -160,6 +160,7 @@ public class EditViewer {
                 }
                 break;
             } catch (InputMismatchException e) {
+                sc.nextLine();
                 System.out.println("EditViewer.selFile2Nuke(): InputMismatch");
             }
         }
