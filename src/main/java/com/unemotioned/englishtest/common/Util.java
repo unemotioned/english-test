@@ -3,22 +3,22 @@ package com.unemotioned.englishtest.common;
 import com.unemotioned.englishtest.common.vo.MenuOpt;
 import com.unemotioned.englishtest.common.vo.Word;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Util {
 
-    public int[] menuMinMax() {
-        int[] minMax = new int[2];
+    // static: init when called by class
+    public static final int[] MENU_MIN_MAX = computeMinMax();
+
+    private static int[] computeMinMax() {
         MenuOpt[] opt = MenuOpt.values();
+        return new int[] {opt[0].ordinal(), opt[opt.length - 1].ordinal()};
+    }
 
-        MenuOpt min = opt[0];
-        MenuOpt max = opt[opt.length - 1];
-
-        minMax[0] = min.ordinal();
-        minMax[1] = max.ordinal();
-
-        return minMax;
+    // clone(): return new copy to prevent caller from mutating shared cache
+    //          (value could've changed but pointer stays same)
+    public int[] menuMinMax() {
+        return MENU_MIN_MAX.clone();
     }
 
     public ArrayList<Word> readFile(String fileName) {
