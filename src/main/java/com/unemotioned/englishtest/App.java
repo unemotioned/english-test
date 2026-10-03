@@ -2,7 +2,6 @@ package com.unemotioned.englishtest;
 
 import com.unemotioned.englishtest.common.FileInitializer;
 import com.unemotioned.englishtest.menu.controller.MenuController;
-
 import java.util.Scanner;
 
 public class App {

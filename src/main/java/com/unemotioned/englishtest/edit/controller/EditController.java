@@ -29,7 +29,7 @@ public class EditController {
     }
 
     public void add() {
-        Word word = editViewer.add();
+        Word word = editViewer.addPrompt();
 
         if (word == null) {
             return;

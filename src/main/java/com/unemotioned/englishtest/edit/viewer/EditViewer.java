@@ -14,25 +14,41 @@ public class EditViewer {
         cViewer = new CommonViewer();
     }
 
-    public Word add() {
-        Word newWord = new Word();
-
+    // TODO: check duplication of definition
+    public Word addPrompt() {
         System.out.println("===== Add New Word =====");
-        System.out.print("Enter new word ([C]ancel): ");
-        String input = sc.nextLine().trim();
-        if (input.equals("C")) {
-            cViewer.promptCancel("add");
-            return null;
+        System.out.println("C to cancel");
+
+        String[] prompts = {"New word: ", "Definition (1/2): ", "Definition (2/2): "};
+        String[] values = new String[prompts.length];
+
+        for (int i = 0; i < prompts.length; i++) {
+            values[i] = getMembers(prompts[i]);
+
+            if (values[i] == null) {
+                return null;
+            }
         }
-        newWord.setWord(input);
 
-        // TODO: check duplication of definition
-        System.out.print("Definition (1/2): ");
-        newWord.setDef1(sc.nextLine().trim());
-        System.out.print("Definition (2/2): ");
-        newWord.setDef2(sc.nextLine().trim());
+        return new Word(values[0], values[1], values[2], 0);
+    }
 
-        return newWord;
+    private String getMembers(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+
+            if (input.equals("C")) {
+                cViewer.promptCancel("add");
+                input = null;
+            }
+
+            if (!input.isBlank() && input != null) {
+                return input;
+            } else {
+                System.out.println("Enter a value");
+            }
+        }
     }
 
     public void printDup(String word) {
