@@ -28,7 +28,9 @@ public class SearchController {
         while (true) {
             searchWord = searchViewer.searchViewer();
 
-            if (searchWord.equals("C")) {
+            if (searchWord.isBlank()) {
+                continue;
+            } else if (searchWord.equals("C")) {
                 cViewer.promptCancel("search");
                 break;
             }

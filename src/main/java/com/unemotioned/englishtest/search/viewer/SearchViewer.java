@@ -43,8 +43,9 @@ public class SearchViewer {
             System.out.print("Select one (0 to Cancel): ");
             try {
                 sel = sc.nextInt();
+                sc.nextLine(); // consume buffer for next charAt(0)
 
-                if (sel > 0 && sel < listLen) {
+                if (sel > 0 && sel <= listLen) {
                     break;
                 } else if (sel == 0) {
                     cViewer.promptCancel("search");
