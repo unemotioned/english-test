@@ -139,10 +139,10 @@ public class ExamController {
     private List<Word> getSelected(int[] selections, List<Word> list) {
         List<Word> selected = new ArrayList<>();
 
-        for (int j = 0; j < list.size(); j++) {
+        for (Word word : list) {
             for (int selection : selections) {
-                if (list.get(j).getIndex() == selection) {
-                    selected.add(list.get(j));
+                if (word.getIndex() == selection) {
+                    selected.add(word);
                 }
             }
         }

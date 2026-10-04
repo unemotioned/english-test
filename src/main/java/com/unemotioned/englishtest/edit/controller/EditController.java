@@ -33,7 +33,7 @@ public class EditController {
         ArrayList<Word> entries = menuCon.getWordList();
         editViewer.addHeader();
 
-        // Metdho Reference ==> `::` operator, shortened for lambda
+        // Method Reference ==> `::` operator, shortened for lambda
         // Word::getWord ==> word -> word.getWord()
         String value = readUniqueMember("New word: ", entries, Word::getWord);
         if (value == null) {

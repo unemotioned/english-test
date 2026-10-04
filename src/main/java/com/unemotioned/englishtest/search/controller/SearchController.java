@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SearchController {
-    final short asciiLowerA = 'a' - 0; // 65
+    final short asciiLowerA = 'a'; // 65
     final short asciiUpperZ = (short) Character.getNumericValue('Z'); // 122
 
     MenuController menuCon;
