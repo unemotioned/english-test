@@ -48,32 +48,17 @@ public class MenuController {
 
             MenuOpt menu = mViewer.menu();
             switch (menu) {
-                case SEARCH:
-                    searchCon.search();
-                    break;
-                case ADD:
-                    editCon.add();
-                    break;
-                case EDIT:
-                    editCon.edit();
-                    break;
-                case EXAM:
-                    examCon.exam();
-                    break;
-                case SHOW:
-                    examCon.showFailed();
-                    break;
-                case MAKEUP:
-                    examCon.makeup();
-                    break;
-                case NUKE:
-                    editCon.nuke();
-                    break;
-                case TERMINATE:
+                case SEARCH -> searchCon.search();
+                case ADD -> editCon.add();
+                case EDIT -> editCon.edit();
+                case EXAM -> examCon.exam();
+                case SHOW -> examCon.showFailed();
+                case MAKEUP -> examCon.makeup();
+                case NUKE -> editCon.nuke();
+                case TERMINATE -> {
                     mViewer.terminate();
                     return;
-                default:
-                    break;
+                }
             }
         }
     }
