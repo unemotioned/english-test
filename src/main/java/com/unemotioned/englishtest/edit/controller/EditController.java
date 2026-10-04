@@ -10,6 +10,7 @@ import com.unemotioned.englishtest.search.controller.SearchController;
 import com.unemotioned.englishtest.search.viewer.SearchViewer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class EditController {
     EditViewer editViewer;
@@ -29,17 +30,47 @@ public class EditController {
     }
 
     public void add() {
-        Word word = editViewer.addPrompt();
+        ArrayList<Word> entries = menuCon.getWordList();
+        editViewer.addHeader();
 
-        if (word == null) {
+        // Metdho Reference ==> `::` operator, shortened for lambda
+        // Word::getWord ==> word -> word.getWord()
+        String value = readUniqueMember("New word: ", entries, Word::getWord);
+        if (value == null) {
             return;
-        } else if (menuCon.getWordList().contains(word)) {
-            editViewer.printDup(word.getWord());
+        }
+        String def1 = readUniqueMember("Definition (1/2): ", entries, Word::getDef1);
+        if (def1 == null) {
+            return;
+        }
+        String def2 = readUniqueMember("Definition (2/2): ", entries, Word::getDef2);
+        if (def2 == null) {
             return;
         }
 
+        Word word = new Word(value, def1, def2, 0);
         boolean appendRes = util.appendToFile(word, Config.WORD_FILE);
+        if (appendRes) {
+            entries.add(word);
+        }
         editViewer.addRes(appendRes);
+    }
+
+    // Function<Word, String> ==> take `Word` input and return `String`
+    private String readUniqueMember(String prompt, ArrayList<Word> entries, Function<Word, String> getter) {
+        while (true) {
+            String input = editViewer.getMembers(prompt);
+            if (input == null) {
+                return null;
+            }
+
+            // .apply(): run the function with this args
+            boolean duplicate = entries.stream().anyMatch(entry -> input.equalsIgnoreCase(getter.apply(entry)));
+            if (!duplicate) {
+                return input;
+            }
+            editViewer.printDup(input);
+        }
     }
 
     public void edit() {

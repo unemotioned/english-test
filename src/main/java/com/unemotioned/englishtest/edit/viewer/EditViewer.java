@@ -14,10 +14,13 @@ public class EditViewer {
         cViewer = new CommonViewer();
     }
 
-    // TODO: check duplication of definition
-    public Word addPrompt() {
+    public void addHeader() {
         System.out.println("===== Add New Word =====");
         System.out.println("C to cancel");
+    }
+
+    public Word addPrompt() {
+        addHeader();
 
         String[] prompts = {"New word: ", "Definition (1/2): ", "Definition (2/2): "};
         String[] values = new String[prompts.length];
@@ -33,17 +36,17 @@ public class EditViewer {
         return new Word(values[0], values[1], values[2], 0);
     }
 
-    private String getMembers(String prompt) {
+    public String getMembers(String prompt) {
         while (true) {
             System.out.print(prompt);
             String input = sc.nextLine().trim();
 
             if (input.equals("C")) {
                 cViewer.promptCancel("add");
-                input = null;
+                return null;
             }
 
-            if (!input.isBlank() && input != null) {
+            if (!input.isBlank()) {
                 return input;
             } else {
                 System.out.println("Enter a value");
