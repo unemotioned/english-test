@@ -19,23 +19,6 @@ public class EditViewer {
         System.out.println("C to cancel");
     }
 
-    public Word addPrompt() {
-        addHeader();
-
-        String[] prompts = {"New word: ", "Definition (1/2): ", "Definition (2/2): "};
-        String[] values = new String[prompts.length];
-
-        for (int i = 0; i < prompts.length; i++) {
-            values[i] = getMembers(prompts[i]);
-
-            if (values[i] == null) {
-                return null;
-            }
-        }
-
-        return new Word(values[0], values[1], values[2], 0);
-    }
-
     public String getMembers(String prompt) {
         while (true) {
             System.out.print(prompt);
