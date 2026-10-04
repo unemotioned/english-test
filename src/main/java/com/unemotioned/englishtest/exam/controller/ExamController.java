@@ -163,13 +163,12 @@ public class ExamController {
         if (numOfExam == 0) {
             return;
         }
+
         testList = getRandWords(numOfExam, failedList);
-
+        Collections.shuffle(testList);
         ArrayList<Word> correctAnswers = examViewer.makeupExam(testList);
-
-        for (Word word : correctAnswers) {
-            failedList.remove(word);
-        }
+        // remove elements without fear of ConcurrentModificationException
+        failedList.removeIf(correctAnswers::contains);
 
         util.overwrite(Config.FAILED_WORD_FILE, failedList);
     }
