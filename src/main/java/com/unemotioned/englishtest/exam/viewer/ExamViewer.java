@@ -150,7 +150,7 @@ public class ExamViewer {
             } catch (NumberFormatException e) {
                 assert inputs != null : "ExamViewer.showFailed().inputs is not null";
                 if (inputs[0].equals("A")) {
-                    int numSize = list.toArray().length + 1;
+                    int numSize = list.size() + 1;
                     numbers = new int[numSize];
 
                     for (int i = 0; i < numSize; i++) {

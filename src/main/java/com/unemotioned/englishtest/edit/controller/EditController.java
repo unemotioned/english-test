@@ -85,7 +85,7 @@ public class EditController {
 
         if (searchList.isEmpty()) {
             editViewer.promptNotFound(keyword);
-        } else if (searchList.toArray().length == 1) {
+        } else if (searchList.size() == 1) {
             editOrDel(searchList.getFirst());
         } else {
             int index = searchViewer.chooseWord(searchList);

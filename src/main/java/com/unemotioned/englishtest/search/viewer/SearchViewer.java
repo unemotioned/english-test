@@ -36,7 +36,7 @@ public class SearchViewer {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
 
-        int listLen = list.toArray().length;
+        int listLen = list.size();
         int sel;
 
         while (true) {

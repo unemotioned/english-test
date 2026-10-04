@@ -26,7 +26,7 @@ public class ExamController {
         }
 
         ArrayList<Word> list = menuCon.getWordList();
-        int numOfExam = examViewer.numOfExam(list.toArray().length);
+        int numOfExam = examViewer.numOfExam(list.size());
         if (numOfExam == 0) {
             return;
         }
@@ -67,7 +67,7 @@ public class ExamController {
     }
 
     private ArrayList<Word> createFailedList(ArrayList<Integer> results, ArrayList<Word> list) {
-        if (results.toArray().length == list.toArray().length) {
+        if (results.size() == list.size()) {
             examViewer.printPerfect();
             return null;
         }
@@ -88,7 +88,7 @@ public class ExamController {
         Random random = new Random();
         Set<Integer> set = new TreeSet<>();
         int[] numbers = new int[cnt];
-        int numOfWords = list.toArray().length;
+        int numOfWords = list.size();
 
         do {
             set.add(random.nextInt(numOfWords));
@@ -114,7 +114,7 @@ public class ExamController {
     public void showFailed() {
         List<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
 
-        if (failedList.toArray().length == 0) {
+        if (failedList.isEmpty()) {
             examViewer.emptyFile(Config.FAILED_WORD_FILE);
             return;
         }
@@ -139,7 +139,7 @@ public class ExamController {
     private List<Word> getSelected(int[] selections, List<Word> list) {
         List<Word> selected = new ArrayList<>();
 
-        for (int j = 0; j < list.toArray().length; j++) {
+        for (int j = 0; j < list.size(); j++) {
             for (int selection : selections) {
                 if (list.get(j).getIndex() == selection) {
                     selected.add(list.get(j));
@@ -152,14 +152,14 @@ public class ExamController {
 
     public void makeup() {
         ArrayList<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
-        if (failedList.toArray().length == 0) {
+        if (failedList.isEmpty()) {
             examViewer.emptyFile(Config.FAILED_WORD_FILE);
             return;
         }
 
         ArrayList<Word> testList;
 
-        int numOfExam = examViewer.numOfExam(failedList.toArray().length);
+        int numOfExam = examViewer.numOfExam(failedList.size());
         if (numOfExam == 0) {
             return;
         }
