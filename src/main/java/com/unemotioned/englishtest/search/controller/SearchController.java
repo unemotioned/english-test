@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SearchController {
-    final short asciiLowerA = 'a'; // 65
-    final short asciiUpperZ = (short) Character.getNumericValue('Z'); // 122
+    final short asciiUpperA = 'A'; // 65
+    final short asciiLowerZ = 'z'; // 122
 
     MenuController menuCon;
     SearchViewer searchViewer;
@@ -36,7 +36,7 @@ public class SearchController {
             }
 
             // if input is english
-            if (searchWord.charAt(0) >= asciiLowerA && searchWord.charAt(0) <= asciiUpperZ) {
+            if (searchWord.charAt(0) >= asciiUpperA && searchWord.charAt(0) <= asciiLowerZ) {
                 wordList = searchWord(searchWord);
             } else {
                 wordList = searchDef(searchWord);
