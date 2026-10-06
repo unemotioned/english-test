@@ -32,13 +32,15 @@ public class ExamController {
         }
 
         list = getRandWords(numOfExam, list);
-        ArrayList<Integer> results;
 
+        ArrayList<Integer> results;
         if (examType == 'e') {
             results = examViewer.engExam(list);
         } else {
             results = examViewer.korExam(list);
         }
+
+        // TODO: show results of taken test
 
         ArrayList<Word> failedList = createFailedList(results, list);
         if (failedList == null) {
@@ -166,6 +168,9 @@ public class ExamController {
 
         testList = getRandWords(numOfExam, failedList);
         Collections.shuffle(testList);
+
+        // TODO: show results of taken test and use Util.holdIt()
+
         ArrayList<Word> correctAnswers = examViewer.makeupExam(testList);
         // remove elements without fear of ConcurrentModificationException
         failedList.removeIf(correctAnswers::contains);

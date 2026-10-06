@@ -6,6 +6,14 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Util {
+    // TODO: use it before menuViewer.clearTerm()
+    public void holdIt() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     // static: init when called by class
     public static final int[] MENU_MIN_MAX = computeMinMax();
