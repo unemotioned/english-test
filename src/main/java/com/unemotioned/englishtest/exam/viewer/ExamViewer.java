@@ -205,9 +205,9 @@ public class ExamViewer {
 
             if (word.getWord().equalsIgnoreCase(guess)) {
                 System.out.println("Yay!!!");
+                results.add(list.get(i));
             } else {
                 System.out.println("Nay...");
-                results.add(list.get(i));
             }
         }
         return results;
