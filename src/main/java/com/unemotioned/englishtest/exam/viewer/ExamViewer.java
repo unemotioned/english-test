@@ -1,8 +1,9 @@
 package com.unemotioned.englishtest.exam.viewer;
 
 import com.unemotioned.englishtest.common.CommonViewer;
+import com.unemotioned.englishtest.common.Config;
+import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.Scanner;
 public class ExamViewer {
     Scanner sc;
     CommonViewer cViewer;
+    Util util;
 
     public ExamViewer(Scanner scanner) {
         sc = scanner;
         cViewer = new CommonViewer();
+        util = new Util();
     }
 
     public char examType() {
@@ -139,6 +142,16 @@ public class ExamViewer {
                 return;
             }
         }
+    }
+
+    public void writeFailedRes(boolean res) {
+        if (res) {
+            System.out.println("Failed words are added to " + Config.FAILED_WORD_FILE);
+        } else {
+            System.out.println("Failed add words to " + Config.FAILED_WORD_FILE);
+        }
+
+        cViewer.holdIt(1000);
     }
 
     // TODO: if selection is out of range

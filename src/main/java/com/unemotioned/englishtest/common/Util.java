@@ -6,15 +6,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Util {
-    // TODO: use it before menuViewer.clearTerm()
-    public void holdIt() {
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
     // static: init when called by class
     public static final int[] MENU_MIN_MAX = computeMinMax();
 
@@ -84,7 +75,7 @@ public class Util {
         }
     }
 
-    public void appendToFile(ArrayList<Word> entries, String fileName) {
+    public boolean appendToFile(ArrayList<Word> entries, String fileName) {
         boolean isLastLineEmpty = checkLastLine(fileName);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, true))) {
@@ -96,8 +87,10 @@ public class Util {
                 }
                 bw.write(wordToString(word));
             }
+            return true;
         } catch (IOException e) {
             System.out.println("Util.appendToFile(): IOException");
+            return false;
         }
     }
 

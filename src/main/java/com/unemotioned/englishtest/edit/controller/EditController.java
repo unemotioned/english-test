@@ -96,6 +96,7 @@ public class EditController {
     private void editOrDel(Word word) {
         final String og = word.getWord();
         char input = editViewer.editOrDel(og);
+        String file = Config.WORD_FILE;
         ArrayList<Word> wordList = menuCon.getWordList();
 
         if (input == 'e') {
@@ -106,14 +107,15 @@ public class EditController {
                 wordList.set(index, editedWord);
             }
 
-            boolean editRes = util.overwrite(Config.WORD_FILE, wordList);
+            boolean editRes = util.overwrite(file, wordList);
             editViewer.editRes(editRes, og, editedWord.getWord());
 
         } else if (input == 'd') {
             boolean delWord = editViewer.delWordConsent();
             if (delWord) {
                 wordList.remove(word);
-                util.overwrite(Config.WORD_FILE, wordList);
+                boolean res = util.overwrite(file, wordList);
+                editViewer.delRes(file, word.getWord(), res);
             }
         }
     }
@@ -131,6 +133,7 @@ public class EditController {
             return;
         }
 
-        util.overwrite(fileName, null);
+        boolean res = util.overwrite(fileName, null);
+        editViewer.nukeRes(fileName, res);
     }
 }

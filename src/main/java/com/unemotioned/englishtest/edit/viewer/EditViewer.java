@@ -47,6 +47,7 @@ public class EditViewer {
         } else {
             System.out.println("Add word: failed...");
         }
+        cViewer.holdIt(1000);
     }
 
     public void editHeader() {
@@ -114,6 +115,16 @@ public class EditViewer {
         } else {
             System.out.println("Edit word: Failed...");
         }
+        cViewer.holdIt(1000);
+    }
+
+    public void delRes(String f, String s, boolean res) {
+        if (res) {
+            System.out.println(s + " is deleted from " + f);
+        } else {
+            System.out.println("Failed to delete " + s + " from " + f);
+        }
+        cViewer.holdIt(1000);
     }
 
     public boolean delWordConsent() {
@@ -197,5 +208,14 @@ public class EditViewer {
         }
 
         return confirmation;
+    }
+
+    public void nukeRes(String file, boolean res) {
+        if (res) {
+            System.out.println("Nuked " + file);
+        } else {
+            System.out.println("Failed to nuke " + file);
+        }
+        cViewer.holdIt(1000);
     }
 }

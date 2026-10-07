@@ -63,7 +63,8 @@ public class ExamController {
         failedList.removeIf(prevFailed::contains);
 
         if (!failedList.isEmpty()) {
-            util.appendToFile(failedList, Config.FAILED_WORD_FILE);
+            boolean res = util.appendToFile(failedList, Config.FAILED_WORD_FILE);
+            examViewer.writeFailedRes(res);
         }
     }
 
@@ -140,22 +141,27 @@ public class ExamController {
             return;
         }
 
-        ArrayList<Word> testList;
-
         int numOfExam = examViewer.numOfExam(failedList.size());
         if (numOfExam == 0) {
             return;
         }
 
-        testList = getRandWords(numOfExam, failedList);
+        ArrayList<Word> testList = getRandWords(numOfExam, failedList);
+
         Collections.shuffle(testList);
 
-        // TODO: show results of taken test and use Util.holdIt()
+        ArrayList<Word> correct = examViewer.makeupExam(testList);
 
-        ArrayList<Word> correctAnswers = examViewer.makeupExam(testList);
+        examViewer.showExamRes(numOfExam, numOfExam - correct.size());
+
         // remove elements without fear of ConcurrentModificationException
-        failedList.removeIf(correctAnswers::contains);
+        failedList.removeIf(correct::contains);
 
-        util.overwrite(Config.FAILED_WORD_FILE, failedList);
+        if (failedList.isEmpty()) {
+            return;
+        }
+
+        boolean res = util.overwrite(Config.FAILED_WORD_FILE, failedList);
+        examViewer.writeFailedRes(res);
     }
 }
