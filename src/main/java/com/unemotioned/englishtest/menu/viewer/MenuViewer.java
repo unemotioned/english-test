@@ -78,8 +78,4 @@ public class MenuViewer {
             System.out.println("MenuViewer.clearTerminal(): Exception");
         }
     }
-
-    public void terminate() {
-        System.out.println("Terminated");
-    }
 }

@@ -20,6 +20,18 @@ public class Util {
         return MENU_MIN_MAX.clone();
     }
 
+    public long modified(String file) {
+        File f = new File(file);
+        return f.lastModified();
+    }
+
+    public boolean checkMod(String file, long mod) {
+        File f = new File(file);
+
+        // true if modified
+        return mod != f.lastModified();
+    }
+
     public ArrayList<Word> readFile(String fileName) {
         ArrayList<Word> list = new ArrayList<>();
 

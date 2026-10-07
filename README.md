@@ -65,6 +65,7 @@
 - [x] track allDB.txt.bak and create allDB.txt for program to edit
 - [ ] .txt files to always have final new line
 - [ ] uniform terminal print style
+- [x] sort entries on shutdown
 
 ### Search
 
@@ -80,7 +81,6 @@
 - [x] get inputs of 1 word and 2 definitions
 - [x] check duplication before adding
 - [x] check duplication of definition (editing included)
-- [ ] sort entries (editing included)
 - [x] option to cancel add
 
 ### Exam

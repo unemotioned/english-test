@@ -15,4 +15,11 @@ public class CommonViewer {
         }
     }
 
+    public void sortingMsg(String file) {
+        System.out.println("Sorting " + file);
+    }
+
+    public void terminate() {
+        System.out.println("Terminated");
+    }
 }
