@@ -32,22 +32,21 @@ public class ExamController {
         }
 
         list = getRandWords(numOfExam, list);
+        Collections.shuffle(list);
 
-        ArrayList<Integer> results;
+        ArrayList<Word> results;
         if (examType == 'e') {
             results = examViewer.engExam(list);
         } else {
             results = examViewer.korExam(list);
         }
 
-        // TODO: show results of taken test
-
-        ArrayList<Word> failedList = createFailedList(results, list);
-        if (failedList == null) {
+        examViewer.showExamRes(numOfExam, results.size());
+        if (results.isEmpty()) {
             return;
         }
 
-        writeToFailDb(failedList);
+        writeToFailDb(results);
     }
 
     private void writeToFailDb(ArrayList<Word> failedList) {
@@ -66,24 +65,6 @@ public class ExamController {
         if (!failedList.isEmpty()) {
             util.appendToFile(failedList, Config.FAILED_WORD_FILE);
         }
-    }
-
-    private ArrayList<Word> createFailedList(ArrayList<Integer> results, ArrayList<Word> list) {
-        if (results.size() == list.size()) {
-            examViewer.printPerfect();
-            return null;
-        }
-
-        // reverse the array to remove words from list backwards to not mess up the index
-        Stack<Integer> stack = new Stack<>();
-        stack.addAll(results);
-
-        while (!stack.isEmpty()) {
-            int anotherIndex = stack.pop();
-            list.remove(anotherIndex);
-        }
-
-        return list;
     }
 
     private ArrayList<Word> getRandWords(int cnt, ArrayList<Word> list) {

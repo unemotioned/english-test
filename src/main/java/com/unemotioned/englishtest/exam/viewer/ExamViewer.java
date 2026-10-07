@@ -2,6 +2,7 @@ package com.unemotioned.englishtest.exam.viewer;
 
 import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.vo.Word;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -49,6 +50,7 @@ public class ExamViewer {
             System.out.print("=> ");
             try {
                 numOfExam = sc.nextInt();
+                sc.nextLine();
 
                 if (numOfExam == 0) {
                     cViewer.promptCancel("exam");
@@ -68,60 +70,75 @@ public class ExamViewer {
         return numOfExam;
     }
 
-    public ArrayList<Integer> engExam(ArrayList<Word> list) {
-        sc.nextLine();
-
-        ArrayList<Integer> results = new ArrayList<>();
+    public ArrayList<Word> engExam(ArrayList<Word> entries) {
+        ArrayList<Word> failed = new ArrayList<>();
 
         System.out.println("You've selected word exam");
         System.out.println("Guess definition using word");
 
-        int index = 1;
-        for (Word word : list) {
-            System.out.println("Word(" + index + "): " + word.getWord());
-            System.out.print("Guess one of definition: ");
-            String defGuess = sc.nextLine().trim();
+        for (int i = 0; i < entries.size(); i++) {
+            Word word = entries.get(i);
 
-            index--;
-            if (defGuess.equals(word.getDef1()) || defGuess.equals(word.getDef2())) {
+            System.out.println("Word(" + (i + 1) + "): " + word.getWord());
+            System.out.print("Guess one of definition: ");
+            String guess = sc.nextLine().trim();
+
+            if (guess.equals(word.getDef1()) || guess.equals(word.getDef2())) {
                 System.out.println("Yay!!!");
-                results.add(index);
             } else {
                 System.out.println("Nay...");
+                failed.add(entries.get(i));
             }
-            index = index + 2;
         }
 
-        return results;
+        return failed;
     }
 
-    public ArrayList<Integer> korExam(ArrayList<Word> list) {
-        ArrayList<Integer> results = new ArrayList<>();
+    public ArrayList<Word> korExam(ArrayList<Word> entries) {
+        ArrayList<Word> failed = new ArrayList<>();
 
         System.out.println("You've selected definition exam");
         System.out.println("Guess word using definition");
 
-        int index = 1;
-        for (Word word : list) {
-            System.out.println("Word(" + index + "): " + word.getDef1() + ", " + word.getDef2());
-            System.out.print("Guess word from definition: ");
-            String wordGuess = sc.next();
+        for (int i = 0; i < entries.size(); i++) {
+            Word word = entries.get(i);
 
-            index--;
-            if (wordGuess.equalsIgnoreCase(word.getWord())) {
+            System.out.println("Word(" + (i + 1) + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.print("Guess word from definition: ");
+            String guess = sc.nextLine().trim();
+
+            if (word.getWord().equalsIgnoreCase(guess)) {
                 System.out.println("Yay!!!");
-                results.add(index);
             } else {
                 System.out.println("Nay...");
+                failed.add(entries.get(i));
             }
-            index = index + 2;
         }
 
-        return results;
+        return failed;
     }
 
-    public void printPerfect() {
-        System.out.println("Perfect");
+    public void showExamRes(int testSize, int failedSize) {
+        int correct = testSize - failedSize;
+
+        System.out.println("===== Exam results =====");
+        if (failedSize == 0) {
+            System.out.println("Perfect Score!!!");
+            System.out.println(correct + "/" + testSize);
+        } else {
+            System.out.println("Correct: " + correct);
+            System.out.println("Incorrect: " + failedSize);
+        }
+
+        String input;
+        while (true) {
+            System.out.println("Press enter to proceed");
+            input = sc.nextLine().trim();
+
+            if (input.isEmpty()) {
+                return;
+            }
+        }
     }
 
     // TODO: if selection is out of range
@@ -177,25 +194,22 @@ public class ExamViewer {
     public ArrayList<Word> makeupExam(ArrayList<Word> list) {
         ArrayList<Word> results = new ArrayList<>();
 
-        sc.nextLine();
         System.out.println("Guess word using definition");
 
-        int index = 1;
-        for (Word word : list) {
-            System.out.println("Word(" + index + "): " + word.getDef1() + ", " + word.getDef2());
-            System.out.print("Definition: ");
-            String wordGuess = sc.nextLine().trim();
+        for (int i = 0; i < list.size(); i++) {
+            Word word = list.get(i);
 
-            index--;
-            if (wordGuess.equalsIgnoreCase(word.getWord())) {
+            System.out.println("Word(" + (i + 1) + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.print("Guess word from definition: ");
+            String guess = sc.nextLine().trim();
+
+            if (word.getWord().equalsIgnoreCase(guess)) {
                 System.out.println("Yay!!!");
-                results.add(word);
             } else {
                 System.out.println("Nay...");
+                results.add(list.get(i));
             }
-            index = index + 2;
         }
-
         return results;
     }
 
