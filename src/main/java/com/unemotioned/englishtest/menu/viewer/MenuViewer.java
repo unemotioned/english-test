@@ -16,7 +16,7 @@ public class MenuViewer {
     }
 
     public MenuOpt menu() {
-        clearTerminal();
+        clearTerm();
 
         System.out.println("===== English Test =====");
         System.out.println("1 Search");
@@ -64,7 +64,7 @@ public class MenuViewer {
         };
     }
 
-    private void clearTerminal() {
+    private void clearTerm() {
         try {
             String os = System.getProperty("os.name");
 

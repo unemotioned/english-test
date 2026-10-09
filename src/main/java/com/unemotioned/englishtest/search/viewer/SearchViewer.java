@@ -15,7 +15,7 @@ public class SearchViewer {
         cViewer = new CommonViewer();
     }
 
-    public String searchViewer() {
+    public String searchPrompt() {
         System.out.print("Search Word ([C]ancel): ");
         return sc.nextLine().trim();
     }
@@ -36,7 +36,7 @@ public class SearchViewer {
             System.out.println(word.getIndex() + ": " + word.getWord());
         }
 
-        int listLen = list.size();
+        int len = list.size();
         int sel;
 
         while (true) {
@@ -45,13 +45,13 @@ public class SearchViewer {
                 sel = sc.nextInt();
                 sc.nextLine(); // consume buffer for next charAt(0)
 
-                if (sel > 0 && sel <= listLen) {
+                if (sel > 0 && sel <= len) {
                     break;
                 } else if (sel == 0) {
                     cViewer.promptCancel("search");
                     break;
                 } else {
-                    System.out.println("Please choose between 1-" + listLen);
+                    System.out.println("Please choose between 1-" + len);
                 }
 
             } catch (InputMismatchException e) {

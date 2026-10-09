@@ -8,50 +8,46 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SearchController {
-    final short asciiUpperA = 'A'; // 65
-    final short asciiLowerZ = 'z'; // 122
-
     MenuController menuCon;
-    SearchViewer searchViewer;
-    CommonViewer cViewer;
+    SearchViewer sView;
+    CommonViewer cView;
 
     public SearchController(MenuController menuCon, Scanner scanner) {
         this.menuCon = menuCon;
-        searchViewer = new SearchViewer(scanner);
-        cViewer = new CommonViewer();
+        sView = new SearchViewer(scanner);
+        cView = new CommonViewer();
     }
 
     public void search() {
-        String searchWord;
-        ArrayList<Word> wordList;
+        String key;
+        ArrayList<Word> list;
 
         while (true) {
-            searchWord = searchViewer.searchViewer();
+            key = sView.searchPrompt();
 
-            if (searchWord.isBlank()) {
+            if (key.isBlank()) {
                 continue;
-            } else if (searchWord.equals("C")) {
-                cViewer.promptCancel("search");
+            } else if (key.equals("C")) {
+                cView.promptCancel("search");
                 break;
             }
 
-            // if input is english
-            if (searchWord.charAt(0) >= asciiUpperA && searchWord.charAt(0) <= asciiLowerZ) {
-                wordList = searchWord(searchWord);
+            if (key.charAt(0) >= 'A' && key.charAt(0) <= 'z') {
+                list = searchWord(key);
             } else {
-                wordList = searchDef(searchWord);
+                list = searchDef(key);
             }
 
-            if (wordList.isEmpty()) {
-                searchViewer.noSearchResults(searchWord);
-            } else if (wordList.size() == 1) {
-                searchViewer.searchResHeader();
-                searchViewer.searchRes(wordList.getFirst());
+            if (list.isEmpty()) {
+                sView.noSearchResults(key);
+            } else if (list.size() == 1) {
+                sView.searchResHeader();
+                sView.searchRes(list.getFirst());
             } else {
-                int index = searchViewer.chooseWord(wordList);
+                int index = sView.chooseWord(list);
 
                 if (index > 0) {
-                    searchViewer.searchRes(wordList.get(--index));
+                    sView.searchRes(list.get(--index));
                 } else {
                     return;
                 }
@@ -59,39 +55,42 @@ public class SearchController {
         }
     }
 
-    public ArrayList<Word> searchWord(String searchWord) {
-        ArrayList<Word> searchResults = new ArrayList<>();
-        int index = 1;
+    public ArrayList<Word> searchWord(String key) {
+        ArrayList<Word> res = new ArrayList<>();
+        int i = 1;
 
-        for (Word word : menuCon.getWordList()) {
-            String wordFromFile = word.getWord();
+        for (Word w : menuCon.getWordList()) {
+            String s = w.getWord();
 
-            if (wordFromFile.toLowerCase().contains(searchWord.toLowerCase())) {
-                word.setIndex(index++);
-                searchResults.add(word);
+            if (s.toLowerCase().contains(key.toLowerCase())) {
+                w.setIndex(i++);
+                res.add(w);
             }
         }
 
-        return searchResults;
+        return res;
     }
 
-    private ArrayList<Word> searchDef(String searchDef) {
-        ArrayList<Word> searchResults = new ArrayList<>();
+    private ArrayList<Word> searchDef(String key) {
+        ArrayList<Word> res = new ArrayList<>();
+        int i = 1;
 
-        for (Word word : menuCon.getWordList()) {
-            String def1 = word.getDef1();
-            String def2 = word.getDef2();
+        for (Word w : menuCon.getWordList()) {
+            String def1 = w.getDef1();
+            String def2 = w.getDef2();
 
-            if (def1.toLowerCase().contains(searchDef)) {
-                searchResults.add(word);
+            if (def1.toLowerCase().contains(key)) {
+                w.setIndex(i++);
+                res.add(w);
                 continue;
             }
 
-            if (def2.toLowerCase().contains(searchDef)) {
-                searchResults.add(word);
+            if (def2.toLowerCase().contains(key)) {
+                w.setIndex(i++);
+                res.add(w);
             }
         }
 
-        return searchResults;
+        return res;
     }
 }

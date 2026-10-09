@@ -2,22 +2,18 @@ package com.unemotioned.englishtest.exam.viewer;
 
 import com.unemotioned.englishtest.common.CommonViewer;
 import com.unemotioned.englishtest.common.Config;
-import com.unemotioned.englishtest.common.Util;
 import com.unemotioned.englishtest.common.vo.Word;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class ExamViewer {
     Scanner sc;
     CommonViewer cViewer;
-    Util util;
 
     public ExamViewer(Scanner scanner) {
         sc = scanner;
         cViewer = new CommonViewer();
-        util = new Util();
     }
 
     public char examType() {
@@ -155,14 +151,14 @@ public class ExamViewer {
     }
 
     // TODO: if selection is out of range
-    public int[] showFailed(List<Word> list) {
+    public int[] showFailed(ArrayList<Word> list) {
         System.out.println("===== Show Failed =====");
-        for (Word word : list) {
-            System.out.println(word.getIndex() + ": " + word.getWord());
+        for (Word w : list) {
+            System.out.println(w.getIndex() + ": " + w.getWord());
         }
 
         String[] inputs = null;
-        int[] numbers;
+        int[] nums;
 
         while (true) {
             System.out.print("Select words to show definitions (separated by space. `0` to cancel. `A` to show all): ");
@@ -171,9 +167,9 @@ public class ExamViewer {
                 // replace more than one space into singe space character
                 inputs = sc.nextLine().trim().replaceAll("\\s+", " ").split(" ");
 
-                numbers = new int[inputs.length];
+                nums = new int[inputs.length];
                 for (int i = 0; i < inputs.length; i++) {
-                    numbers[i] = Integer.parseInt(inputs[i]);
+                    nums[i] = Integer.parseInt(inputs[i]);
                 }
 
                 break;
@@ -181,52 +177,53 @@ public class ExamViewer {
                 assert inputs != null : "ExamViewer.showFailed().inputs is not null";
                 if (inputs[0].equals("A")) {
                     int numSize = list.size() + 1;
-                    numbers = new int[numSize];
+                    nums = new int[numSize];
 
                     for (int i = 0; i < numSize; i++) {
-                        numbers[i] = i;
+                        nums[i] = i;
                     }
 
-                    return numbers;
+                    return nums;
                 } else {
                     System.out.println("Please input integer type");
                 }
             }
         }
 
-        return numbers;
+        return nums;
     }
 
-    public void showFailedDef(List<Word> list) {
+    public void showFailedDef(ArrayList<Word> list) {
         System.out.println("===== Definitions =====");
-        for (Word word : list) {
-            System.out.println(word.getIndex() + ". " + word.getWord() + ": " + word.getDef1() + ", " + word.getDef2());
+        for (Word w : list) {
+            System.out.println(w.getIndex() + ". " + w.getWord() + ": " + w.getDef1() + ", " + w.getDef2());
         }
     }
 
     public ArrayList<Word> makeupExam(ArrayList<Word> list) {
-        ArrayList<Word> results = new ArrayList<>();
+        ArrayList<Word> res = new ArrayList<>();
 
         System.out.println("Guess word using definition");
 
         for (int i = 0; i < list.size(); i++) {
-            Word word = list.get(i);
+            Word w = list.get(i);
 
-            System.out.println("Word(" + (i + 1) + "): " + word.getDef1() + ", " + word.getDef2());
+            System.out.println("Word(" + (i + 1) + "): " + w.getDef1() + ", " + w.getDef2());
             System.out.print("Guess word from definition: ");
             String guess = sc.nextLine().trim();
 
-            if (word.getWord().equalsIgnoreCase(guess)) {
+            if (w.getWord().equalsIgnoreCase(guess)) {
                 System.out.println("Yay!!!");
-                results.add(list.get(i));
+                res.add(list.get(i));
             } else {
                 System.out.println("Nay...");
             }
         }
-        return results;
+        return res;
     }
 
-    public void emptyFile(String fileName) {
-        System.out.println("File is empty: " + fileName);
+    public void promptEmpty(String file) {
+        System.out.println(file + " is empty");
+        cViewer.holdIt(1000);
     }
 }

@@ -8,11 +8,10 @@ import com.unemotioned.englishtest.edit.controller.EditController;
 import com.unemotioned.englishtest.exam.controller.ExamController;
 import com.unemotioned.englishtest.menu.viewer.MenuViewer;
 import com.unemotioned.englishtest.search.controller.SearchController;
-import lombok.Getter;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import lombok.Getter;
 
 public class MenuController {
     MenuViewer mViewer;

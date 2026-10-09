@@ -75,7 +75,7 @@ public class EditController {
 
     public void edit() {
         editViewer.editHeader();
-        String keyword = searchViewer.searchViewer();
+        String keyword = searchViewer.searchPrompt();
         if (keyword.equals("C")) {
             cViewer.promptCancel("edit");
             return;
@@ -97,24 +97,24 @@ public class EditController {
         final String og = word.getWord();
         char input = editViewer.editOrDel(og);
         String file = Config.WORD_FILE;
-        ArrayList<Word> wordList = menuCon.getWordList();
+        ArrayList<Word> entries = menuCon.getWordList();
 
         if (input == 'e') {
             Word editedWord = editViewer.editWord(word);
 
-            int index = wordList.indexOf(word);
+            int index = entries.indexOf(word);
             if (index != -1) {
-                wordList.set(index, editedWord);
+                entries.set(index, editedWord);
             }
 
-            boolean editRes = util.overwrite(file, wordList);
+            boolean editRes = util.overwrite(file, entries);
             editViewer.editRes(editRes, og, editedWord.getWord());
 
         } else if (input == 'd') {
             boolean delWord = editViewer.delWordConsent();
             if (delWord) {
-                wordList.remove(word);
-                boolean res = util.overwrite(file, wordList);
+                entries.remove(word);
+                boolean res = util.overwrite(file, entries);
                 editViewer.delRes(file, word.getWord(), res);
             }
         }
@@ -122,10 +122,10 @@ public class EditController {
 
     public void nuke() {
         String[] files = {Config.WORD_FILE, Config.FAILED_WORD_FILE};
-        String fileName = editViewer.selFile2Nuke(files);
+        String sel = editViewer.selFile2Nuke(files);
 
-        if (!fileName.isEmpty()) {
-            boolean consent = editViewer.confirmNuke(fileName);
+        if (!sel.isEmpty()) {
+            boolean consent = editViewer.confirmNuke(sel);
             if (!consent) {
                 return;
             }
@@ -133,7 +133,7 @@ public class EditController {
             return;
         }
 
-        boolean res = util.overwrite(fileName, null);
-        editViewer.nukeRes(fileName, res);
+        boolean res = util.overwrite(sel, null);
+        editViewer.nukeRes(sel, res);
     }
 }

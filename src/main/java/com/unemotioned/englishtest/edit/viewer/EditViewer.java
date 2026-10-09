@@ -162,6 +162,7 @@ public class EditViewer {
             System.out.print("=> ");
             try {
                 input = sc.nextInt();
+                sc.nextLine();
 
                 if (input == 0) {
                     cViewer.promptCancel("nuke");
@@ -173,7 +174,6 @@ public class EditViewer {
                 }
                 break;
             } catch (InputMismatchException e) {
-                sc.nextLine();
                 System.out.println("EditViewer.selFile2Nuke(): InputMismatch");
             }
         }
@@ -183,7 +183,6 @@ public class EditViewer {
 
     public boolean confirmNuke(String fileName) {
         boolean confirmation = false;
-        sc.nextLine();
         String input;
 
         System.out.println("Confirm nuke: " + fileName);

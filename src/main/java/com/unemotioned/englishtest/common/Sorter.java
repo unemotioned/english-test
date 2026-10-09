@@ -1,7 +1,6 @@
 package com.unemotioned.englishtest.common;
 
 import com.unemotioned.englishtest.common.vo.Word;
-
 import java.util.ArrayList;
 import java.util.Random;
 

@@ -63,7 +63,6 @@
 
 - [x] wait 1 second before clearing terminal after message
 - [x] track allDB.txt.bak and create allDB.txt for program to edit
-- [ ] .txt files to always have final new line
 - [ ] uniform terminal print style
 - [x] sort entries on shutdown
 

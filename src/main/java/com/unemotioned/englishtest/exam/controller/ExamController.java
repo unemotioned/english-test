@@ -25,13 +25,13 @@ public class ExamController {
             return;
         }
 
-        ArrayList<Word> list = menuCon.getWordList();
-        int numOfExam = examViewer.numOfExam(list.size());
-        if (numOfExam == 0) {
+        ArrayList<Word> entries = menuCon.getWordList();
+        int num = examViewer.numOfExam(entries.size());
+        if (num == 0) {
             return;
         }
 
-        list = getRandWords(numOfExam, list);
+        ArrayList<Word> list = getRandWords(num, entries);
         Collections.shuffle(list);
 
         ArrayList<Word> results;
@@ -41,7 +41,7 @@ public class ExamController {
             results = examViewer.korExam(list);
         }
 
-        examViewer.showExamRes(numOfExam, results.size());
+        examViewer.showExamRes(num, results.size());
         if (results.isEmpty()) {
             return;
         }
@@ -69,99 +69,98 @@ public class ExamController {
     }
 
     private ArrayList<Word> getRandWords(int cnt, ArrayList<Word> list) {
-        Random random = new Random();
+        Random rand = new Random();
         Set<Integer> set = new TreeSet<>();
-        int[] numbers = new int[cnt];
-        int numOfWords = list.size();
+        int len = list.size();
 
         do {
-            set.add(random.nextInt(numOfWords));
+            set.add(rand.nextInt(len));
         } while (set.size() < cnt);
 
-        int index = 0;
+        int i = 0;
+        int[] nums = new int[cnt];
         for (int n : set) {
-            numbers[index] = n;
-            index++;
+            nums[i] = n;
+            i++;
         }
 
-        // select words from that line
         ArrayList<Word> testList = new ArrayList<>();
-
-        for (int num : numbers) {
+        for (int num : nums) {
             testList.add(list.get(num));
         }
 
         Collections.shuffle(testList);
+
         return testList;
     }
 
     public void showFailed() {
-        List<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
+        ArrayList<Word> entries = util.readFile(Config.FAILED_WORD_FILE);
 
-        if (failedList.isEmpty()) {
-            examViewer.emptyFile(Config.FAILED_WORD_FILE);
+        if (entries.isEmpty()) {
+            examViewer.promptEmpty(Config.FAILED_WORD_FILE);
             return;
         }
 
-        int index = 0;
-        for (Word word : failedList) {
-            index++;
-            word.setIndex(index);
+        int i = 0;
+        for (Word w : entries) {
+            i++;
+            w.setIndex(i);
         }
 
         while (true) {
-            int[] inputs = examViewer.showFailed(failedList);
+            int[] inputs = examViewer.showFailed(entries);
             if (inputs.length == 1 && inputs[0] == 0) {
                 break;
             }
 
-            List<Word> selected = getSelected(inputs, failedList);
-            examViewer.showFailedDef(selected);
+            ArrayList<Word> sel = getSelected(inputs, entries);
+            examViewer.showFailedDef(sel);
         }
     }
 
-    private List<Word> getSelected(int[] selections, List<Word> list) {
-        List<Word> selected = new ArrayList<>();
+    private ArrayList<Word> getSelected(int[] selections, ArrayList<Word> list) {
+        ArrayList<Word> res = new ArrayList<>();
 
-        for (Word word : list) {
-            for (int selection : selections) {
-                if (word.getIndex() == selection) {
-                    selected.add(word);
+        for (Word w : list) {
+            for (int sel : selections) {
+                if (w.getIndex() == sel) {
+                    res.add(w);
                 }
             }
         }
 
-        return selected;
+        return res;
     }
 
     public void makeup() {
-        ArrayList<Word> failedList = util.readFile(Config.FAILED_WORD_FILE);
-        if (failedList.isEmpty()) {
-            examViewer.emptyFile(Config.FAILED_WORD_FILE);
+        ArrayList<Word> entries = util.readFile(Config.FAILED_WORD_FILE);
+        if (entries.isEmpty()) {
+            examViewer.promptEmpty(Config.FAILED_WORD_FILE);
             return;
         }
 
-        int numOfExam = examViewer.numOfExam(failedList.size());
-        if (numOfExam == 0) {
+        int num = examViewer.numOfExam(entries.size());
+        if (num == 0) {
             return;
         }
 
-        ArrayList<Word> testList = getRandWords(numOfExam, failedList);
+        ArrayList<Word> list = getRandWords(num, entries);
 
-        Collections.shuffle(testList);
+        Collections.shuffle(list);
 
-        ArrayList<Word> correct = examViewer.makeupExam(testList);
+        ArrayList<Word> correct = examViewer.makeupExam(list);
 
-        examViewer.showExamRes(numOfExam, numOfExam - correct.size());
+        examViewer.showExamRes(num, num - correct.size());
 
         // remove elements without fear of ConcurrentModificationException
-        failedList.removeIf(correct::contains);
+        entries.removeIf(correct::contains);
 
-        if (failedList.isEmpty()) {
+        if (entries.isEmpty()) {
             return;
         }
 
-        boolean res = util.overwrite(Config.FAILED_WORD_FILE, failedList);
+        boolean res = util.overwrite(Config.FAILED_WORD_FILE, entries);
         examViewer.writeFailedRes(res);
     }
 }
